@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{af24c9a8-4bcc-437c-b65e-1b8e23ac7c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x00 Main">
+      <UniqueIdentifier>{b2da9a2c-715c-4020-b7d6-35458616ed8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x01 DataStructure">
+      <UniqueIdentifier>{3622cd2e-e58b-4d5f-acd7-1e0cc573fd3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x99 Default">
+      <UniqueIdentifier>{351025dc-3bad-44c6-b049-b35722730dfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x99 Default\리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="0x99 Default\소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="0x99 Default\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="0x03 Utility">
+      <UniqueIdentifier>{211110b5-dccf-453a-865d-b4d0e0eabad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x00 ThreadPool">
+      <UniqueIdentifier>{3961665b-938e-434c-ae09-f4e841421eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x01 MemoryPool">
+      <UniqueIdentifier>{bb88ef84-e5d2-435e-af2a-7f43e7cb4fc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x01 DataStructure\0x00 Vector">
+      <UniqueIdentifier>{cdb39ded-279d-47ba-9829-d46a60dfeeca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x01 DataStructure\0x01 Matrix">
+      <UniqueIdentifier>{81a144a6-e4ed-4eff-9e83-7bb4c235d333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject">
+      <UniqueIdentifier>{0e65964e-0081-4ccd-80e2-895ab01ad859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component">
+      <UniqueIdentifier>{7676a159-0afa-4dde-bc98-0c91ebd6fa9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource">
+      <UniqueIdentifier>{67c8e84e-fceb-489e-92ab-4f9b73194d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x00 Sphere">
+      <UniqueIdentifier>{7bbbb6bb-0cf7-4a5f-b00c-8a155122d7d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material">
+      <UniqueIdentifier>{07a18522-50ea-4bdd-8d44-70fe92972dc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x00 Transform">
+      <UniqueIdentifier>{bdb56150-c7d8-42ed-b645-223d09d145b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>0x99 Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>0x99 Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>0x99 Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracing.h">
+      <Filter>0x99 Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>0x00 Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Public.h">
+      <Filter>0x03 Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>0x03 Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>0x99 Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>0x01 DataStructure\0x00 Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>0x03 Utility\0x00 ThreadPool</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>0x03 Utility\0x01 MemoryPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x00 Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>0x01 DataStructure\0x01 Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>0x02 FieldObject\0x00 Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material</Filter>
+    </ClInclude>
+    <ClInclude Include="HitRecord.h">
+      <Filter>0x03 Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldObject.h">
+      <Filter>0x02 FieldObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x00 Transform</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>0x99 Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracing.cpp">
+      <Filter>0x99 Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>0x00 Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>0x03 Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>0x99 Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>0x01 DataStructure\0x00 Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>0x03 Utility\0x00 ThreadPool</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryPool.cpp">
+      <Filter>0x03 Utility\0x01 MemoryPool</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x00 Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>0x01 DataStructure\0x01 Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>0x02 FieldObject\0x00 Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldObject.cpp">
+      <Filter>0x99 Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x00 Transform</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RayTracing.rc">
+      <Filter>0x99 Default\리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>0x99 Default\리소스 파일</Filter>
+    </Image>
+    <Image Include="RayTracing.ico">
+      <Filter>0x99 Default\리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

@@ -15,7 +15,7 @@ bool hitable_list::hit(const ray& r, float tmin, float tmax, hit_record& rec) co
 {
 	hit_record temp_rec;
 	bool hit_anything = false;
-	double closet_so_far = tmax;
+	float closet_so_far = tmax;
 
 	for (int i = 0; i < list_size; ++i)
 	{

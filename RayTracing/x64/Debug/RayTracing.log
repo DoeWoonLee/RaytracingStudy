@@ -1,0 +1,4 @@
+﻿  ThreadPool.cpp
+c:\users\이도운\desktop\codes\raytracing\raytracing in a weekend\raytracing\threadpool.h(11): error C2146: 구문 오류: ')'이(가) 'pFunction' 식별자 앞에 없습니다.
+c:\users\이도운\desktop\codes\raytracing\raytracing in a weekend\raytracing\threadpool.h(11): error C3646: 'pFunction': 알 수 없는 재정의 지정자입니다.
+c:\users\이도운\desktop\codes\raytracing\raytracing in a weekend\raytracing\threadpool.h(11): error C2059: 구문 오류: ')'

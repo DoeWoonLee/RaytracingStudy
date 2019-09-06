@@ -58,6 +58,12 @@
     <Filter Include="0x02 FieldObject\0x00 Component\0x00 Transform">
       <UniqueIdentifier>{bdb56150-c7d8-42ed-b645-223d09d145b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material\0x00 Lambertain">
+      <UniqueIdentifier>{1f2c6c15-0e8e-4ef5-a09d-f2a140dce5a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x02 MathUtility">
+      <UniqueIdentifier>{3948f427-cd7e-4caa-8c08-aba6ef0ba8dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -123,6 +129,12 @@
     <ClInclude Include="Transform.h">
       <Filter>0x02 FieldObject\0x00 Component\0x00 Transform</Filter>
     </ClInclude>
+    <ClInclude Include="Lambertain.h">
+      <Filter>0x99 Default\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtility.h">
+      <Filter>0x99 Default\헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -172,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>0x02 FieldObject\0x00 Component\0x00 Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Lambertain.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x00 Lambertain</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtility.cpp">
+      <Filter>0x03 Utility\0x02 MathUtility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "FieldObject.h"
+#include <vector>
+
 class CMain;
 struct THREAD_DATA
 {
@@ -24,6 +27,8 @@ private:
 	int m_iScreenX;
 	int m_iScreenY;
 	int m_iSampleCnt;
+
+	std::vector<CFiledObject*> m_vecObjects;
 private:
 	HDC m_hdc;
 	HWND m_hWnd;

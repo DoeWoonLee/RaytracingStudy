@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Ray.h"
+#include "HitRecord.h"
 
 class CResources
 {
-	virtual bool Hit(const CRay& inRay, float& fMin, float& fMax) = 0;
+public:
+	virtual bool Hit(const CRay& inRay, float& fMin, float& fMax, HitRecord& hitRecord) = 0;
 };

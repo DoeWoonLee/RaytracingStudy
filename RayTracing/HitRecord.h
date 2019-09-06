@@ -8,4 +8,5 @@ struct HitRecord
 	vec3 vNormal;
 	vec3 vAlbedo;
 	vec3 vEmitted;
+	float fTime;
 };

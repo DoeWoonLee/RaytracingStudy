@@ -275,8 +275,10 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="FieldObject.h" />
     <ClInclude Include="HitRecord.h" />
+    <ClInclude Include="Lambertain.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MathUtility.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="Public.h" />
@@ -296,8 +298,10 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="FieldObject.cpp" />
+    <ClCompile Include="Lambertain.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MathUtility.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="Ray.cpp" />

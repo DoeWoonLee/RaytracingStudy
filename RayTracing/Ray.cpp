@@ -60,3 +60,8 @@ void CRay::SetDirection(vec3 & vDirection)
 {
 	m_vDirection = vDirection;
 }
+
+vec3 CRay::PointAtParameter(const float & fTime) const
+{
+	return vec3(m_vOrigin.ToSIMD() + fTime * m_vDirection.ToSIMD());
+}

@@ -20,6 +20,21 @@ float tagVector3::Length(tagVector3 & vVector)
 	return vLength.m128_f32[0];
 }
 
+float tagVector3::Length(void)
+{
+	
+	XMVECTOR vLength = XMVector3Length(ToSIMD());
+
+	return vLength.m128_f32[0];
+}
+
+float tagVector3::LengthSquared(void)
+{
+	XMVECTOR vLengthSq = XMVector3LengthSq(ToSIMD());
+
+	return vLengthSq.m128_f32[0];
+}
+
 const tagVector3& tagVector3::TransformNormal(XMMATRIX mat)
 {
 	XMVECTOR vThis = ToSIMD();

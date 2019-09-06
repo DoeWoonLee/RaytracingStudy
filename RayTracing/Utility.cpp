@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Utility.h"
+#include <float.h>
 
 void CUtility::GetSkyColor(float& y, vec3& vOut)
 {
@@ -10,11 +11,38 @@ void CUtility::GetSkyColor(float& y, vec3& vOut)
 	XMStoreFloat3(&vOut, (1.0f - t) * vLerp1 + t * vLerp2);
 }
 
-void CUtility::GetPixelColor(CRay & Ray)
+void CUtility::GetPixelColor(CRay & Ray, std::vector<CFiledObject*>& vecFieldObject, vec3& vOutColor)
 {
-	XMVECTOR sColor = DirectX::XMVectorSet(0.f, 0.f, 0.f, 0.f);
+	//XMVECTOR sColor = DirectX::XMVectorSet(0.f, 0.f, 0.f, 0.f);
 
 	// if Hit
+
+
+
+	CRay outRay;
+	float fMin = 0.000001f;
+	float fMax = FLT_MAX;
+	vec3 vColor = vec3(1.f, 1.f, 1.f);
+
+	bool bHit = true;
+	for (int iDepth = 0; iDepth < 50 && false != bHit; ++iDepth, bHit = false)
+	{
+
+		for (size_t i = 0; i < vecFieldObject.size(); ++i)
+		{
+			bHit = vecFieldObject[i]->Hit(Ray, outRay, fMin, fMax, vColor);
+		}
+		Ray = outRay;
+		
+	}
+	if (false == bHit)
+	{
+		float fRayY = Ray.GetDirection().y;
+
+		GetSkyColor(fRayY, vColor);
+	}
+
+	vOutColor += vColor;
 
 }
 

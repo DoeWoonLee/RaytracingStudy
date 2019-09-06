@@ -32,6 +32,12 @@ void CMain::Initialize(void)
 	auto Test = &CMain::RenderByThread;
 
 	CThreadPool::InitThreads();
+
+
+
+	m_vecObjects.push_back(CMemoryPool::Allocate<CFiledObject>::NEW(CMemoryPool::OBJECT, vec3(0.f, 0.f, -1.f)));
+	m_vecObjects.push_back(CMemoryPool::Allocate<CFiledObject>::NEW(CMemoryPool::OBJECT, vec3(1.f, 0.f, -1.f)));
+	m_vecObjects.push_back(CMemoryPool::Allocate<CFiledObject>::NEW(CMemoryPool::OBJECT, vec3(-1.f, 0.f,-1.f)));
 }
 
 void CMain::Render(void)
@@ -69,22 +75,26 @@ void CMain::RenderPixel(const int& iIdxX, const int& iIdxY)
 	int iYCnt = 50;//g_iScreenY / iCoreCnt;
 	int iYStart = iYCnt * iIdxY;//iYCnt * iThreadIdx;
 
+	vec3 vColor = vec3(0.f, 0.f, 0.f);
 	for (int x = iXStart; x < iXStart + iXCnt; ++x)
 	{
 		for (int y = iYStart; y < iYStart + iYCnt; ++y)
 		{
+			vColor = vec3(0.f, 0.f, 0.f);
 			float u = x / (float)g_iScreenX;
 			float v = y / (float)g_iScreenY;
 			CRay ray = m_pCamera->GetRay(u, v);
 
-			float fDirectionY = ray.GetDirection().y;
+			CUtility::GetPixelColor(ray, m_vecObjects, vColor);
+
+			/*float fDirectionY = ray.GetDirection().y;
 			vec3 vColor;
 			bool bReturn = CUtility::CalculateColor(ray);
 			if (false == bReturn)
 				CUtility::GetSkyColor(fDirectionY, vColor);
 			else
 				vColor.x = 1.f;
-
+			*/	
 			
 			CThreadPool::g_PublicMutex.lock();
 			SetPixel(m_hdc, x, y, RGB(int(vColor.x * 255.f), int(vColor.y * 255.f), int(vColor.z * 255.f)));

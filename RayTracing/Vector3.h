@@ -13,6 +13,8 @@ typedef struct tagVector3 : public XMFLOAT3
 	explicit tagVector3(_In_reads_(3) const float *pArray) : XMFLOAT3(pArray) {}
 	void Normalize(void);
 	float Length(tagVector3& vVector);
+	float Length(void);
+	float LengthSquared(void);
 
 	const tagVector3& TransformNormal(XMMATRIX mat);
 	const tagVector3& TransformCoord(XMMATRIX mat);

@@ -22,6 +22,7 @@ public:
 	void SetDirection(XMVECTOR& sDirection);
 	void SetDirection(vec3& vDirection);
 
+	vec3 PointAtParameter(const float& fTime) const;
 private:
 	vec3 m_vOrigin;
 	vec3 m_vDirection;

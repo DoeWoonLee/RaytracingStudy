@@ -179,9 +179,6 @@
     <ClCompile Include="Material.cpp">
       <Filter>0x02 FieldObject\0x00 Component\0x02 Material</Filter>
     </ClCompile>
-    <ClCompile Include="FieldObject.cpp">
-      <Filter>0x99 Default\소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>0x02 FieldObject\0x00 Component\0x00 Transform</Filter>
     </ClCompile>
@@ -190,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="MathUtility.cpp">
       <Filter>0x03 Utility\0x02 MathUtility</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldObject.cpp">
+      <Filter>0x02 FieldObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

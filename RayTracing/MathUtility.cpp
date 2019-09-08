@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MathUtility.h"
 
-thread_local static UINT g_uiState = 1;
+thread_local UINT g_uiState = 1;
 
 UINT & CMathUtility::XorShift32(void)
 {
@@ -27,7 +27,7 @@ vec3 CMathUtility::RandUnitSphereVector(void)
 		vInnerUnitSphere.y = frand0to1() * 2.f - 1.f;
 		vInnerUnitSphere.z = frand0to1() * 2.f - 1.f;
 
-	} while (vInnerUnitSphere.LengthSquared() > 1.f);
+	} while (vInnerUnitSphere.LengthSquared() >= 1.f);
 
 	return vInnerUnitSphere;
 }

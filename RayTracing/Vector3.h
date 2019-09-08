@@ -44,6 +44,9 @@ typedef struct tagVector3 : public XMFLOAT3
 	tagVector3 operator*(const float& fFloat);
 	tagVector3 operator/(const float& fFloat);
 
+	tagVector3 operator+(const float& fFloat);
+	tagVector3 operator-(const float& fFloat);
+
 	friend tagVector3 operator*(const float& fFloat, const tagVector3& Vector);
 	friend tagVector3 operator/(const float& fFloat, const tagVector3& Vector);
 

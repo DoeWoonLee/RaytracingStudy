@@ -161,3 +161,13 @@ tagVector3 tagVector3::operator/(const float & fFloat)
 
 	return tagVector3(FVector);
 }
+
+tagVector3 tagVector3::operator+(const float & fFloat)
+{
+	return tagVector3(ToSIMD() + XMVectorSet(fFloat, fFloat, fFloat, fFloat));
+}
+
+tagVector3 tagVector3::operator-(const float & fFloat)
+{
+	return tagVector3(ToSIMD() - XMVectorSet(fFloat, fFloat, fFloat, fFloat));
+}

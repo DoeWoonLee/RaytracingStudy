@@ -4,6 +4,8 @@
 #include <list>
 #include <mutex>
 
+
+
 class CMemoryPool
 {
 	// Inner Sturcts
@@ -51,3 +53,9 @@ public:
 
 };
 
+#define DECLARE_CREATE_BY_MEMORYPOOL(CLASSTYPE, MEMORY_TYPE) \
+template<class... Args>									\
+static CLASSTYPE* Create(Args... Arguments)				\
+{														\
+	return CMemoryPool::Allocate<CLASSTYPE>::NEW(MEMORY_TYPE, Arguments...);\
+}

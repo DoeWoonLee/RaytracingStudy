@@ -3,7 +3,7 @@
 
 
 CSphere::CSphere() : 
-	m_vCenter(0.f, 0.f, 0.f), m_fRadius(0.5f)
+	m_vCenter(0.f, 0.f, 0.f), m_fRadius(1.f)
 {
 }
 
@@ -28,7 +28,7 @@ bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& 
 	XMVECTOR R = sOrigin - sCenter;
 
 	float A = DirectX::XMVector3Dot(sDir, sDir).m128_f32[0];
-	float B = DirectX::XMVector3Dot(sDir, R).m128_f32[0];
+	float B = DirectX::XMVector3Dot(R, sDir).m128_f32[0];
 	float C = DirectX::XMVector3Dot(R, R).m128_f32[0] - m_fRadius * m_fRadius;
 
 	float fDiscriminant = B * B -  A * C;
@@ -41,6 +41,8 @@ bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& 
 			hitRecord.fTime = T;
 			hitRecord.vPos = InputRay.PointAtParameter(T);
 			hitRecord.vNormal.LoadSIMD((hitRecord.vPos.ToSIMD() - m_vCenter.ToSIMD()) / m_fRadius);
+
+			return true;
 		}
 
 		T = (-B + sqrtf(fDiscriminant)) / A;
@@ -50,9 +52,8 @@ bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& 
 			hitRecord.fTime = T;
 			hitRecord.vPos = InputRay.PointAtParameter(T);
 			hitRecord.vNormal.LoadSIMD((hitRecord.vPos.ToSIMD() - m_vCenter.ToSIMD()) / m_fRadius);
+			return true;
 		}
-
-		return true;
 	}
 
 	return false;

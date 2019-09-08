@@ -13,35 +13,41 @@ void CUtility::GetSkyColor(float& y, vec3& vOut)
 
 void CUtility::GetPixelColor(CRay & Ray, std::vector<CFiledObject*>& vecFieldObject, vec3& vOutColor)
 {
-	//XMVECTOR sColor = DirectX::XMVectorSet(0.f, 0.f, 0.f, 0.f);
-
-	// if Hit
-
-
-
 	CRay outRay;
 	float fMin = 0.000001f;
 	float fMax = FLT_MAX;
 	vec3 vColor = vec3(1.f, 1.f, 1.f);
+	vec3 vEnvironmentColor;
 
 	bool bHit = true;
-	for (int iDepth = 0; iDepth < 50 && false != bHit; ++iDepth, bHit = false)
+	int iDepth = 0;
+	for (; iDepth < 50 && true == bHit; ++iDepth)
 	{
-
+		fMax = FLT_MAX;
+		bHit = false;
 		for (size_t i = 0; i < vecFieldObject.size(); ++i)
 		{
-			bHit = vecFieldObject[i]->Hit(Ray, outRay, fMin, fMax, vColor);
+			 //Ãæµ¹ µÆÀ»¶§
+			if (vecFieldObject[i]->Hit(Ray, outRay, fMin, fMax, vColor))
+			{
+				bHit = true;
+
+			}
+		}
+		if (false == bHit)
+		{
+			
+			float fRayY = Ray.GetDirection().y;
+
+			GetSkyColor(fRayY, vEnvironmentColor);
+			vColor *= vEnvironmentColor;
+
+			break;
+			
 		}
 		Ray = outRay;
-		
 	}
-	if (false == bHit)
-	{
-		float fRayY = Ray.GetDirection().y;
-
-		GetSkyColor(fRayY, vColor);
-	}
-
+	vColor /= (float)iDepth;
 	vOutColor += vColor;
 
 }

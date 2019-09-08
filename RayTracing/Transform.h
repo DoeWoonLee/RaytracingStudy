@@ -4,6 +4,9 @@
 #include "Matrix.h"
 #include "Vector3.h"
 #include "Ray.h"
+#include "HitRecord.h"
+#include "MemoryPool.h"
+
 
 class CTransform : public CComponent
 {
@@ -13,9 +16,15 @@ public:
 	explicit CTransform(const vec3& vPos, const vec3& vRotate);
 	explicit CTransform(const vec3& vPos, const vec3& vRotate, const vec3 vScale);
 public:
+	DECLARE_CREATE_BY_MEMORYPOOL(CTransform, CMemoryPool::OBJECT)
+
+
 	void InverseRay(const CRay& WorldRay, CRay& InverseRay);
 	void WorldRay(CRay& WorldRay, const CRay& InverseRay);
+	void WorldRecord(HitRecord& Record);
 	void Update(const float& fTimeDelta);
+
+	const vec3& GetPos(void);
 private: // Static Values
 	vec3 m_vScale;
 	vec3 m_vPos;

@@ -21,7 +21,7 @@ public:
 
 	void InverseRay(const CRay& WorldRay, CRay& InverseRay);
 	void WorldRay(CRay& WorldRay, const CRay& InverseRay);
-	void WorldRecord(HitRecord& Record);
+	void WorldNormal(vec3& vNormal);
 	void Update(const float& fTimeDelta);
 
 	const vec3& GetPos(void);

@@ -17,15 +17,19 @@ CSphere::CSphere(const vec3 & vCenter, const float & fRadius) :
 {
 
 }
+thread_local XMVECTOR sCenter;
+thread_local XMVECTOR sDir;
+thread_local XMVECTOR sOrigin;
+thread_local XMVECTOR R;
 
 bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& hitRecord)
 {
-	XMVECTOR sCenter = m_vCenter.ToSIMD();
-	//Spehre Check
-	XMVECTOR sDir = InputRay.GetSDirection();
-	XMVECTOR sOrigin = InputRay.GetSOrigin();
+	sCenter = m_vCenter.ToSIMD();
+	// Sphere Check
+	sDir = InputRay.GetSDirection();
+	sOrigin = InputRay.GetSOrigin();
 
-	XMVECTOR R = sOrigin - sCenter;
+	R = sOrigin - sCenter;
 
 	float A = DirectX::XMVector3Dot(sDir, sDir).m128_f32[0];
 	float B = DirectX::XMVector3Dot(R, sDir).m128_f32[0];

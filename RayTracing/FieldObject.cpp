@@ -49,25 +49,22 @@ thread_local HitRecord Record;
 
 bool CFiledObject::Hit(const CRay & inRay, CRay& outRay, float & fMin, float & fMax, vec3 & vColor)
 {
-	
-
-	
 	m_pTransform->InverseRay(inRay, InverseRay);
 
 	if (m_pResource->Hit(InverseRay, fMin, fMax, Record))
 	{
-		if(fMax > Record.fTime)
-			fMax = Record.fTime;
-
+		fMax = Record.fTime;
 		
-		m_pTransform->WorldRecord(Record);
-		if (m_pMaterial->Scatter(Record, outRay, vMaterialColor))
+		m_pTransform->WorldNormal(Record.vNormal);
+		// 정확도를 위해 Time값으로 다시 Position을 구함
+		Record.vPos = inRay.PointAtParameter(fMax);
+
+		if (m_pMaterial->Scatter(Record, inRay, outRay, vMaterialColor))
 		{
 			
 			vColor.LoadSIMD( vMaterialColor.ToSIMD() * vColor.ToSIMD());
 		}
-		//vec3 vDir = outRay.GetDirection();
-		vColor = (Record.vNormal + 1.f) * 0.5f;
+
 		return true;
 	}
 	

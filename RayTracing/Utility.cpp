@@ -11,6 +11,7 @@ void CUtility::GetSkyColor(float& y, vec3& vOut)
 	XMStoreFloat3(&vOut, (1.0f - t) * vLerp1 + t * vLerp2);
 }
 
+
 void CUtility::GetPixelColor(CRay & Ray, std::vector<CFiledObject*>& vecFieldObject, vec3& vOutColor)
 {
 	CRay outRay;
@@ -47,26 +48,7 @@ void CUtility::GetPixelColor(CRay & Ray, std::vector<CFiledObject*>& vecFieldObj
 		}
 		Ray = outRay;
 	}
-	vColor /= (float)iDepth;
+	//vColor /= (float)iDepth;
 	vOutColor += vColor;
 
-}
-
-bool  CUtility::CalculateColor(CRay & Ray)
-{
-	float fRadius = 0.5f;
-	XMVECTOR sCenter = DirectX::XMVectorSet(0.f, 0.f, -1.f, 0.f);
-	//Spehre Check
-	XMVECTOR sDir = Ray.GetSDirection();
-	XMVECTOR sOrigin = Ray.GetSOrigin();
-
-	XMVECTOR R = sOrigin - sCenter;
-
-	float A = DirectX::XMVector3Dot(sDir, sDir).m128_f32[0] ;
-	float B = 2.f * DirectX::XMVector3Dot(sDir,	 R).m128_f32[0];
-	float C = DirectX::XMVector3Dot(R, R).m128_f32[0] - fRadius * fRadius;
-
-	float fDiscriminant = B * B - 4.f * A * C;
-
-	return fDiscriminant > 0.f;
 }

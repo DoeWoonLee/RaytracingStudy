@@ -6,5 +6,5 @@
 class CMaterial
 {
 public :
-	virtual bool Scatter(HitRecord& Record, CRay& OutRay, vec3& vColor) = 0;
+	virtual bool Scatter(HitRecord& Record,const CRay& InRay, CRay& OutRay, vec3& vColor) = 0;
 };

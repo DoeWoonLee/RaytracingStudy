@@ -13,11 +13,12 @@ CLambertain::CLambertain(const vec3 & vAlbedo) :
 {
 }
 
-bool CLambertain::Scatter(HitRecord & Record, CRay & OutRay, vec3 & vColor)
+bool CLambertain::Scatter(HitRecord & Record, const CRay& InRay, CRay & OutRay, vec3 & vColor)
 {
 	vColor = m_vAlbedo;
 
 	OutRay.SetDirection(XMVector3Normalize( Record.vNormal.ToSIMD() + CMathUtility::RandUnitSphereVector().ToSIMD() ));
+
 	OutRay.SetOrigin(Record.vPos);
 
 	return true;

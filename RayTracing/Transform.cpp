@@ -21,10 +21,11 @@ CTransform::CTransform(const vec3 & vPos, const vec3 & vRotate, const vec3 vScal
 	Update(0.f);
 }
 
-thread_local XMMATRIX InverseMatrix;
 thread_local XMMATRIX WorldMatrix;
+thread_local XMMATRIX InverseMatrix;
 void CTransform::InverseRay(const CRay & WorldRay, CRay & InverseRay)
 {
+
 	InverseMatrix = m_matInvWorld.ToSIMD();
 	InverseRay.SetOrigin(XMVector3TransformCoord(WorldRay.GetOrigin().ToSIMD(), InverseMatrix));
 	InverseRay.SetDirection(XMVector3TransformNormal(WorldRay.GetDirection().ToSIMD(), InverseMatrix));
@@ -32,20 +33,18 @@ void CTransform::InverseRay(const CRay & WorldRay, CRay & InverseRay)
 
 void CTransform::WorldRay(CRay & WorldRay, const CRay & InverseRay)
 {
-
 	WorldMatrix = m_matWorld.ToSIMD();
 	WorldRay.SetOrigin(XMVector3TransformCoord(InverseRay.GetOrigin().ToSIMD(), WorldMatrix));
-	WorldRay.SetDirection(XMVector3TransformNormal(InverseRay.GetDirection().ToSIMD(), WorldMatrix));
+	WorldRay.SetDirection(XMVector3Normalize(XMVector3TransformNormal(InverseRay.GetDirection().ToSIMD(), WorldMatrix)));
 }
 
-void CTransform::WorldRecord(HitRecord & Record)
+void CTransform::WorldNormal(vec3 & vNormal)
 {
 	WorldMatrix = m_matWorld.ToSIMD();
 
-	Record.vPos.LoadSIMD(XMVector3TransformCoord(Record.vPos.ToSIMD(), WorldMatrix));
-	Record.vNormal.LoadSIMD(XMVector3Normalize( XMVector3TransformNormal(Record.vNormal.ToSIMD(), WorldMatrix)));
-
+	vNormal.LoadSIMD(XMVector3Normalize(XMVector3TransformNormal(vNormal.ToSIMD(), WorldMatrix)));
 }
+
 thread_local XMMATRIX smatScale, smatTrans, smatRotate, smatWorld;
 void CTransform::Update(const float & fTimeDelta)
 {
@@ -61,7 +60,7 @@ void CTransform::Update(const float & fTimeDelta)
 	XMVECTOR svDeterminant = XMMatrixDeterminant(smatWorld);
 	
 	// World
-	m_matWorld.LoadSIMD(smatWorld);
+	m_matWorld.LoadSIMD( smatWorld);
 	// Inverse
 	m_matInvWorld.LoadSIMD( XMMatrixInverse(&svDeterminant, smatWorld));
 }

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MathUtility.h"
 
-thread_local UINT g_uiState = 1;
+thread_local UINT g_uiState = 2;
 
 UINT & CMathUtility::XorShift32(void)
 {
@@ -19,9 +19,10 @@ float CMathUtility::frand0to1(void)
 	return (XorShift32() & 0xFFFFFF) / 16777216.0f;
 }
 
+thread_local vec3 vInnerUnitSphere;
 vec3 CMathUtility::RandUnitSphereVector(void)
 {
-	vec3 vInnerUnitSphere;
+	
 	do {
 		vInnerUnitSphere.x = frand0to1() * 2.f - 1.f;
 		vInnerUnitSphere.y = frand0to1() * 2.f - 1.f;

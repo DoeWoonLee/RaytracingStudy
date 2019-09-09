@@ -27,7 +27,7 @@ void CMain::Initialize(void)
 
 	//int* pNew = CMemoryPool::Allocate<int>::NEW(CMemoryPool::OBJECT);
 
-	m_pCamera = CMemoryPool::Allocate<CCamera>::NEW(CMemoryPool::OBJECT, vec3(0.f, 0.f, 10.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
+	m_pCamera = CMemoryPool::Allocate<CCamera>::NEW(CMemoryPool::OBJECT, vec3(0.f, 4.f, 10.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
 	//m_pCamera = new CCamera(vec3(0.f, 1.f, 3.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float) g_iScreenY, 20.f);
 
 	auto Test = &CMain::RenderByThread;
@@ -40,7 +40,7 @@ void CMain::Initialize(void)
 	m_vecObjects.push_back(CMemoryPool::Allocate<CFiledObject>::NEW(CMemoryPool::OBJECT, vec3(2.f, 0.f, -1.f)));
 	m_vecObjects.push_back(CMemoryPool::Allocate<CFiledObject>::NEW(CMemoryPool::OBJECT, vec3(-2.f, 0.f,-1.f)));
 
-	m_vecObjects.push_back(CFiledObject::Create( CTransform::Create(vec3(0.f, -501.f, 0.f), vec3(0.f, 0.f, 0.f), vec3(500.f, 500.f, 500.f))));
+	m_vecObjects.push_back(CFiledObject::Create( CTransform::Create(vec3(0.f, -101.f, 0.f), vec3(0.f, 0.f, 0.f), vec3(100.f, 100.f, 100.f))));
 }
 
 void CMain::Render(void)
@@ -81,13 +81,14 @@ void CMain::RenderPixel(const int& iIdxX, const int& iIdxY)
 	vec3 vColor = vec3(0.f, 0.f, 0.f);
 	CRay ray;
 
-	for (int x = iXStart; x < iXStart + iXCnt; ++x)
+	int x, y, s;
+	for (x = iXStart; x < iXStart + iXCnt; ++x)
 	{
-		for (int y = iYStart; y < iYStart + iYCnt; ++y)
+		for (y = iYStart; y < iYStart + iYCnt; ++y)
 		{
-			vColor = vec3(0.f, 0.f, 0.f);
+			memset(&vColor, 0, sizeof(vec3));
 
-			for (int s = 0; s < 50; ++s)
+			for (s = 0; s < 50; ++s)
 			{
 				float u = (x + CMathUtility::frand0to1()) / (float)g_iScreenX;
 				float v = (y + CMathUtility::frand0to1()) / (float)g_iScreenY;

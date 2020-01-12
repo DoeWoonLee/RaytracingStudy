@@ -5,24 +5,32 @@
 CSphere::CSphere() : 
 	m_vCenter(0.f, 0.f, 0.f), m_fRadius(1.f)
 {
+	MakeMinMax();
 }
 
 CSphere::CSphere(const float & fRadius) : 
 	m_vCenter(0.f, 0.f, 0.f), m_fRadius(fRadius)
 {
+	MakeMinMax();
 }
 
 CSphere::CSphere(const vec3 & vCenter, const float & fRadius) :
 	m_vCenter(vCenter), m_fRadius(fRadius)
 {
-
+	MakeMinMax();
 }
+void CSphere::MakeMinMax()
+{
+	m_vMin = vec3(-m_fRadius + m_vCenter.x, -m_fRadius + m_vCenter.y, -m_fRadius + m_vCenter.z);
+	m_vMax = vec3(m_fRadius + m_vCenter.x, m_fRadius + m_vCenter.y, m_fRadius + m_vCenter.z);
+}
+
 thread_local XMVECTOR sCenter;
 thread_local XMVECTOR sDir;
 thread_local XMVECTOR sOrigin;
 thread_local XMVECTOR R;
 
-bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& hitRecord)
+bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& hitRecord)const
 {
 	sCenter = m_vCenter.ToSIMD();
 	// Sphere Check
@@ -62,3 +70,4 @@ bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& 
 
 	return false;
 }
+

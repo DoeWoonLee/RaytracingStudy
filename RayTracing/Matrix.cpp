@@ -23,7 +23,7 @@ tagMatrix tagMatrix::Identity(void)
 	return *this;
 }
 
-XMMATRIX tagMatrix::ToSIMD(void)
+XMMATRIX tagMatrix::ToSIMD(void) const
 {
 	return XMLoadFloat4x4(this);
 }

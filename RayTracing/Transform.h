@@ -19,9 +19,11 @@ public:
 	DECLARE_CREATE_BY_MEMORYPOOL(CTransform, CMemoryPool::OBJECT)
 
 
-	void InverseRay(const CRay& WorldRay, CRay& InverseRay);
-	void WorldRay(CRay& WorldRay, const CRay& InverseRay);
-	void WorldNormal(vec3& vNormal);
+	void InverseRay(const CRay& WorldRay, CRay& InverseRay) const;
+	void WorldRay(CRay& WorldRay, const CRay& InverseRay) const;
+	void WorldNormal(vec3& vNormal) const;
+	void WorldPos(vec3& vPos) const;
+	void WorldRecord(HitRecord& Record) const;
 	void Update(const float& fTimeDelta);
 
 	const vec3& GetPos(void);

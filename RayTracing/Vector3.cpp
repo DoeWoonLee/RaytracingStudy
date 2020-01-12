@@ -13,7 +13,7 @@ void tagVector3::Normalize(void)
 	XMStoreFloat3(this, Vector);
 }
 
-float tagVector3::Length(tagVector3 & vVector)
+float tagVector3::Length(const tagVector3 & vVector)
 {
 	XMVECTOR vLength = XMVector3Length(ToSIMD() - vVector.ToSIMD());
 
@@ -49,6 +49,18 @@ const tagVector3& tagVector3::TransformCoord(XMMATRIX mat)
 	return *this;
 }
 
+float tagVector3::Dot(const tagVector3 & v1, const  tagVector3 & v2)
+{
+	//return v1.x * v2.x + v1.y * v2.y  + v1.z * v2.z;
+	return XMVector3Dot(v1.ToSIMD(), v2.ToSIMD()).m128_f32[0];
+}
+
+tagVector3 tagVector3::Cross(const tagVector3 & v1, const tagVector3 & v2)
+{
+
+	return tagVector3(XMVector3Cross(v1.ToSIMD(), v2.ToSIMD()));
+}
+
 XMVECTOR tagVector3::ToSIMD(void) const
 {
 	return XMLoadFloat3(this);
@@ -59,7 +71,12 @@ void tagVector3::LoadSIMD(XMVECTOR vSimd)
 	XMStoreFloat3(this, vSimd);
 }
 
-tagVector3 tagVector3::operator+(const tagVector3 & AddedVec3)
+void tagVector3::operator=(const XMVECTOR & sVector)
+{
+	this->LoadSIMD(sVector);
+}
+
+tagVector3 tagVector3::operator+(const tagVector3 & AddedVec3)const
 {
 	XMVECTOR VecInput = XMLoadFloat3(&AddedVec3);
 	XMVECTOR VecThis = XMLoadFloat3(this);
@@ -69,7 +86,7 @@ tagVector3 tagVector3::operator+(const tagVector3 & AddedVec3)
 	return tagVector3(VecInput);
 }
 
-tagVector3 tagVector3::operator-(const tagVector3 & AddedVec3)
+tagVector3 tagVector3::operator-(const tagVector3 & AddedVec3)const
 {
 	XMVECTOR VecInput = XMLoadFloat3(&AddedVec3);
 	XMVECTOR VecThis = XMLoadFloat3(this);
@@ -162,12 +179,17 @@ tagVector3 tagVector3::operator/(const float & fFloat)
 	return tagVector3(FVector);
 }
 
-tagVector3 tagVector3::operator+(const float & fFloat)
+tagVector3 tagVector3::operator+(const float & fFloat)const
 {
 	return tagVector3(ToSIMD() + XMVectorSet(fFloat, fFloat, fFloat, fFloat));
 }
 
-tagVector3 tagVector3::operator-(const float & fFloat)
+tagVector3 tagVector3::operator-(const float & fFloat)const
 {
 	return tagVector3(ToSIMD() - XMVectorSet(fFloat, fFloat, fFloat, fFloat));
+}
+
+float& tagVector3::operator[](const int & iIndex)
+{
+	return ((float*)(&x))[iIndex];
 }

@@ -2,8 +2,10 @@
 #include "Transform.h"
 #include "MemoryPool.h"
 
-CTransform::CTransform(void)
+CTransform::CTransform(void):
+	m_vScale(1.f, 1.f, 1.f)
 {
+	Update(0.f);
 }
 
 CTransform::CTransform(const vec3 & vPos):
@@ -23,7 +25,7 @@ CTransform::CTransform(const vec3 & vPos, const vec3 & vRotate, const vec3 vScal
 
 thread_local XMMATRIX WorldMatrix;
 thread_local XMMATRIX InverseMatrix;
-void CTransform::InverseRay(const CRay & WorldRay, CRay & InverseRay)
+void CTransform::InverseRay(const CRay & WorldRay, CRay & InverseRay) const
 {
 
 	InverseMatrix = m_matInvWorld.ToSIMD();
@@ -31,18 +33,33 @@ void CTransform::InverseRay(const CRay & WorldRay, CRay & InverseRay)
 	InverseRay.SetDirection(XMVector3TransformNormal(WorldRay.GetDirection().ToSIMD(), InverseMatrix));
 }
 
-void CTransform::WorldRay(CRay & WorldRay, const CRay & InverseRay)
+void CTransform::WorldRay(CRay & WorldRay, const CRay & InverseRay) const
 {
 	WorldMatrix = m_matWorld.ToSIMD();
 	WorldRay.SetOrigin(XMVector3TransformCoord(InverseRay.GetOrigin().ToSIMD(), WorldMatrix));
 	WorldRay.SetDirection(XMVector3Normalize(XMVector3TransformNormal(InverseRay.GetDirection().ToSIMD(), WorldMatrix)));
 }
 
-void CTransform::WorldNormal(vec3 & vNormal)
+void CTransform::WorldNormal(vec3 & vNormal) const
 {
 	WorldMatrix = m_matWorld.ToSIMD();
 
 	vNormal.LoadSIMD(XMVector3Normalize(XMVector3TransformNormal(vNormal.ToSIMD(), WorldMatrix)));
+}
+
+void CTransform::WorldPos(vec3 & vPos) const
+{
+	WorldMatrix = m_matWorld.ToSIMD();
+
+	vPos.LoadSIMD(XMVector3TransformCoord(vPos.ToSIMD(), WorldMatrix));
+}
+
+void CTransform::WorldRecord(HitRecord & Record) const
+{
+	WorldMatrix = m_matWorld.ToSIMD();
+
+	Record.vPos.LoadSIMD(XMVector3TransformCoord(Record.vPos.ToSIMD(), WorldMatrix));
+	Record.vNormal.LoadSIMD(XMVector3Normalize(XMVector3TransformNormal(Record.vNormal.ToSIMD(), WorldMatrix)));
 }
 
 thread_local XMMATRIX smatScale, smatTrans, smatRotate, smatWorld;
@@ -56,7 +73,7 @@ void CTransform::Update(const float & fTimeDelta)
 	smatRotate = XMMatrixRotationRollPitchYaw(m_vRotate.x, m_vRotate.y, m_vRotate.z);
 	
 
-	smatWorld = smatScale * smatTrans * smatRotate;
+	smatWorld = smatScale * smatRotate * smatTrans ;
 	XMVECTOR svDeterminant = XMMatrixDeterminant(smatWorld);
 	
 	// World

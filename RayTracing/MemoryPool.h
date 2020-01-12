@@ -20,6 +20,8 @@ private:
 public:
 	enum MEMORY_INDEX {
 		OBJECT,
+		BVH_TREE,
+		KD_TREE,
 		MEMORY_INDEX_END
 	};
 	template<typename T>
@@ -53,9 +55,16 @@ public:
 
 };
 
+//#define DECLARE_CREATE_BY_MEMORYPOOL(CLASSTYPE, MEMORY_TYPE) \
+//template<class... Args>									\
+//static CLASSTYPE* Create(Args... Arguments)				\
+//{														\
+//	return CMemoryPool::Allocate<CLASSTYPE>::NEW(MEMORY_TYPE, Arguments...);\
+//}
+
 #define DECLARE_CREATE_BY_MEMORYPOOL(CLASSTYPE, MEMORY_TYPE) \
 template<class... Args>									\
 static CLASSTYPE* Create(Args... Arguments)				\
 {														\
-	return CMemoryPool::Allocate<CLASSTYPE>::NEW(MEMORY_TYPE, Arguments...);\
+	return new CLASSTYPE(Arguments...);\
 }

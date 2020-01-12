@@ -3,6 +3,7 @@
 #include "FieldObject.h"
 #include <vector>
 
+class CBVHTree;
 class CMain;
 struct THREAD_DATA
 {
@@ -28,9 +29,11 @@ private:
 	int m_iScreenY;
 	int m_iSampleCnt;
 
-	std::vector<CFiledObject*> m_vecObjects;
+	std::vector<CFieldObject*> m_vecObjects;
+	CBVHTree* m_pBVHTree;
 private:
 	HDC m_hdc;
 	HWND m_hWnd;
 	CCamera* m_pCamera;
+
 };

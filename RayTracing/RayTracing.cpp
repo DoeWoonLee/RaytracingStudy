@@ -6,8 +6,8 @@
 #include "Main.h"
 #define MAX_LOADSTRING 100
 
-int g_iScreenX = 600;
-int g_iScreenY = 300;
+int g_iScreenX = 500;
+int g_iScreenY = 500;
 // 전역 변수:
 HWND		g_hWnd;
 HINSTANCE	g_hInst;                               // 현재 인스턴스입니다.

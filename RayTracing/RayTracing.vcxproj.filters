@@ -70,6 +70,45 @@
     <Filter Include="0x01 DataStructure\0x03 Camera">
       <UniqueIdentifier>{af24c9a8-4bcc-437c-b65e-1b8e23ac7c51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material\0x02 Dielectric">
+      <UniqueIdentifier>{2cc8e540-6ecd-4e4f-8269-f496d18ddffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x01 Triangle">
+      <UniqueIdentifier>{0ed1d6b9-e89c-4f53-9b76-7f2002faf52f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x03 FBXLoader">
+      <UniqueIdentifier>{7bd803e4-76d4-43db-b58e-80f9267e6d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x01 DataStructure\0x04 Vertex">
+      <UniqueIdentifier>{b83714e0-fc84-4f03-970f-1a83b0402d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x01 BVHTree">
+      <UniqueIdentifier>{390cbe0d-7131-4fab-8b73-e5a4c6c0e7f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x03 AABB">
+      <UniqueIdentifier>{916965c7-b88c-451d-8a67-a102c18c9ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\KDTree">
+      <UniqueIdentifier>{d10498ab-713d-4acf-8ed1-18ccf97c60cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material\Texture">
+      <UniqueIdentifier>{b9312f4b-5673-4d80-92df-2fb8651366a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x99 Mesh">
+      <UniqueIdentifier>{28494dd0-ff28-4565-9c82-58537c6fa495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x02 Box">
+      <UniqueIdentifier>{b8550478-fc15-4dee-bca2-fa5b6af96465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material\0x03 DiffuseLight">
+      <UniqueIdentifier>{e6262f08-76fa-4f9b-9cb5-542b1646819b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x03 ConstantMedium">
+      <UniqueIdentifier>{8290abe0-7bfa-4db5-acbb-67be4d52fc0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material\0x04 Isotropic">
+      <UniqueIdentifier>{68d09d43-c348-42b0-84eb-e9a138cd108e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -144,6 +183,48 @@
     <ClInclude Include="Lambertain.h">
       <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x00 Lambertain</Filter>
     </ClInclude>
+    <ClInclude Include="Dielectric.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x02 Dielectric</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x01 Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x99 Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="FBXLoader.h">
+      <Filter>0x03 Utility\0x03 FBXLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>0x01 DataStructure\0x04 Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x03 AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="BVHTree.h">
+      <Filter>0x02 FieldObject\0x01 BVHTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BVHLeaf.h">
+      <Filter>0x02 FieldObject\0x01 BVHTree</Filter>
+    </ClInclude>
+    <ClInclude Include="KDTree.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\KDTree</Filter>
+    </ClInclude>
+    <ClInclude Include="KDTreeStructs.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\KDTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x02 Box</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffuseLight.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x03 DiffuseLight</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantMedium.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x03 ConstantMedium</Filter>
+    </ClInclude>
+    <ClInclude Include="Isotropic.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x04 Isotropic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -202,6 +283,42 @@
     </ClCompile>
     <ClCompile Include="Ray.cpp">
       <Filter>0x01 DataStructure\0x02 Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="Dielectric.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x02 Dielectric</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x01 Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x99 Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="FBXLoader.cpp">
+      <Filter>0x03 Utility\0x03 FBXLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x03 AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="BVHTree.cpp">
+      <Filter>0x02 FieldObject\0x01 BVHTree</Filter>
+    </ClCompile>
+    <ClCompile Include="BVHLeaf.cpp">
+      <Filter>0x02 FieldObject\0x01 BVHTree</Filter>
+    </ClCompile>
+    <ClCompile Include="KDTree.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\KDTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x02 Box</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffuseLight.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x03 DiffuseLight</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantMedium.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x03 ConstantMedium</Filter>
+    </ClCompile>
+    <ClCompile Include="Isotropic.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x04 Isotropic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

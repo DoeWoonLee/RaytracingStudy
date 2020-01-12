@@ -4,20 +4,24 @@
 #include "Transform.h"
 #include "Resources.h"
 #include "MemoryPool.h"
+#include "AABB.h"
 
-class CFiledObject
+class CFieldObject
 {
 public:
-	CFiledObject(void);
-	CFiledObject(const vec3& vPos);
-	CFiledObject(CTransform* pTransform);
-	CFiledObject(CTransform* pTransform, CResources* pResource, CMaterial* pMaterial);
-	DECLARE_CREATE_BY_MEMORYPOOL(CFiledObject, CMemoryPool::OBJECT)
+	CFieldObject(void);
+	CFieldObject(const vec3& vPos);
+	CFieldObject(CTransform* pTransform);
+	CFieldObject(CTransform* pTransform, CResources* pResource, CMaterial* pMaterial);
+	DECLARE_CREATE_BY_MEMORYPOOL(CFieldObject, CMemoryPool::OBJECT)
 
-	bool Hit(const CRay& inRay, CRay& outRay, float& fMin, float& fMax, vec3& vColor);
-
+	bool Hit(HitRecord& Record, const CRay& inRay, float& fMin, float& fMax);
+	bool Scatter(HitRecord& Record, const CRay& inRay, CRay& outRay, vec3& vColor) const;
+	vec3 Emitted(const vec3& vPos);
+	const CAABB* GetAABB(void);
 private:
 	CTransform* m_pTransform;
 	CResources* m_pResource;
 	CMaterial* m_pMaterial;
+	CAABB* m_pAABB;
 };

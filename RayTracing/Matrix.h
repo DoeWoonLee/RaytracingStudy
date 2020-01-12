@@ -17,7 +17,7 @@ typedef struct tagMatrix : public XMFLOAT4X4
 
 	tagMatrix Inverse(void);
 	tagMatrix Identity(void);
-	XMMATRIX ToSIMD(void);
+	XMMATRIX ToSIMD(void) const;
 	void LoadSIMD(XMMATRIX matSimd);
 	float       operator() (size_t Row, size_t Column) const { return m[Row][Column]; }
 	float&      operator() (size_t Row, size_t Column) { return m[Row][Column]; }

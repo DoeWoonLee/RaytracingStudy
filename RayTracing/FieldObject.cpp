@@ -5,8 +5,9 @@
 #include "Lambertain.h"
 #include "Transform.h"
 #include "Utility.h"
+#include "AABB.h"
 
-CFiledObject::CFiledObject(void)
+CFieldObject::CFieldObject(void)
 {
 	// Default Create
 	// Sphere
@@ -15,9 +16,11 @@ CFiledObject::CFiledObject(void)
 	m_pMaterial = CMemoryPool::Allocate<CLambertain>::NEW(CMemoryPool::OBJECT);
 	// Origin Coordinate
 	m_pTransform = CMemoryPool::Allocate<CTransform>::NEW(CMemoryPool::OBJECT);
+	// AABB
+	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
 
-CFiledObject::CFiledObject(const vec3 & vPos)
+CFieldObject::CFieldObject(const vec3 & vPos)
 {
 	// Default Create
 	// Sphere
@@ -26,48 +29,69 @@ CFiledObject::CFiledObject(const vec3 & vPos)
 	m_pMaterial = CMemoryPool::Allocate<CLambertain>::NEW(CMemoryPool::OBJECT);
 	// Origin Coordinate
 	m_pTransform = CMemoryPool::Allocate<CTransform>::NEW(CMemoryPool::OBJECT, vPos);
+	// AABB
+	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
 
-CFiledObject::CFiledObject(CTransform * pTransform):
+CFieldObject::CFieldObject(CTransform * pTransform):
 	m_pTransform(pTransform)
 {
 	// Sphere
 	m_pResource = CMemoryPool::Allocate<CSphere>::NEW(CMemoryPool::OBJECT);
 	// Lambertain
 	m_pMaterial = CMemoryPool::Allocate<CLambertain>::NEW(CMemoryPool::OBJECT);
+
+	// AABB
+	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
 
-CFiledObject::CFiledObject(CTransform * pTransform, CResources * pResource, CMaterial * pMaterial):
+CFieldObject::CFieldObject(CTransform * pTransform, CResources * pResource, CMaterial * pMaterial):
 	m_pTransform(pTransform), m_pResource(pResource), m_pMaterial(pMaterial)
 {
-	
+	// AABB
+	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
 
 thread_local CRay InverseRay;
 thread_local vec3 vMaterialColor;
-thread_local HitRecord Record;
 
-bool CFiledObject::Hit(const CRay & inRay, CRay& outRay, float & fMin, float & fMax, vec3 & vColor)
+
+bool CFieldObject::Hit(HitRecord& Record, const CRay & inRay,float & fMin, float & fMax)
 {
-	m_pTransform->InverseRay(inRay, InverseRay);
-
-	if (m_pResource->Hit(InverseRay, fMin, fMax, Record))
+	
+	if(m_pAABB->Hit(inRay, fMin, fMax, Record))
 	{
-		fMax = Record.fTime;
-		
-		m_pTransform->WorldNormal(Record.vNormal);
-		// 정확도를 위해 Time값으로 다시 Position을 구함
-		Record.vPos = inRay.PointAtParameter(fMax);
+		m_pTransform->InverseRay(inRay, InverseRay);
 
-		if (m_pMaterial->Scatter(Record, inRay, outRay, vMaterialColor))
+		if (m_pResource->Hit(InverseRay, fMin, fMax, Record))
 		{
-			
-			vColor.LoadSIMD( vMaterialColor.ToSIMD() * vColor.ToSIMD());
-		}
+			fMax = Record.fTime;
+			Record.vPos = inRay.PointAtParameter(fMax);
 
-		return true;
+			return true;
+		}
 	}
+	
 	
 
 	return false;
+}
+
+bool CFieldObject::Scatter(HitRecord & Record, const CRay & inRay, CRay & outRay, vec3 & vColor) const
+{
+	m_pTransform->WorldNormal(Record.vNormal);
+
+	Record.vPos = inRay.PointAtParameter(Record.fTime);
+
+	return m_pMaterial->Scatter(Record, inRay, outRay, vColor);
+}
+
+vec3 CFieldObject::Emitted(const vec3 & vPos)
+{
+	return m_pMaterial->Emitted(vPos);
+}
+
+const CAABB * CFieldObject::GetAABB(void)
+{
+	return m_pAABB;
 }

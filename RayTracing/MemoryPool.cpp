@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MemoryPool.h"
 
-#define MEMORY_PAGE_SIZE 2048
+#define MEMORY_PAGE_SIZE 4096
 
 CMemoryPool* CMemoryPool::m_pInstance = nullptr;
 

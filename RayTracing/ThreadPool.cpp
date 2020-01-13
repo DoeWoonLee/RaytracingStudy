@@ -113,3 +113,8 @@ void CThreadPool::MainWait(void)
 	}
 
 }
+
+bool CThreadPool::CheckNowRunning(void)
+{
+	return g_iRunningThread != 0;
+}

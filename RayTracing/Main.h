@@ -21,19 +21,27 @@ public:
 public:
 	void Initialize(void);
 	void Render(void);
-	void RenderPixel(const int& iIdxX, const int& iIdxY);
 
+	bool RenderCall(void);
+	void ExitProgram(void);
+	bool CheckNowRendering(void);
+private:
+	void RenderPixel(const int& iIdxX, const int& iIdxY);
 	static void RenderByThread(void* pMain);
 private:
 	int m_iScreenX;
 	int m_iScreenY;
 	int m_iSampleCnt;
 
-	std::vector<CFieldObject*> m_vecObjects;
-	CBVHTree* m_pBVHTree;
-private:
 	HDC m_hdc;
 	HWND m_hWnd;
+
+	BYTE* m_pScreenBuffers;
+
+	std::vector<CFieldObject*> m_vecObjects;
+	CBVHTree* m_pBVHTree;
 	CCamera* m_pCamera;
+
+	bool m_bThreadExit;
 
 };

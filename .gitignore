@@ -28,9 +28,10 @@ bld/
 [Ll]og/
 
 RayTracing/ThirdParty/*
-./Debug
-./ipch
+Debug
+ipch
 Raytracing in a weekend
+RayTracing/x64
 
 # Visual Studio 2015 cache/options directory
 .vs/

@@ -2,6 +2,12 @@
 
 [TOC]
 
+## Command
+
+- Start or Stop Rendering : Ctrl + S
+
+
+
 ## FieldObject Class
 
 - 실질적으로 그려질 오브젝트들의 묶음을 담당한다.

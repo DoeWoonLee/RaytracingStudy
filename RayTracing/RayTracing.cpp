@@ -6,13 +6,18 @@
 #include "Main.h"
 #define MAX_LOADSTRING 100
 
-int g_iScreenX = 500;
-int g_iScreenY = 500;
+
+
 // 전역 변수:
 HWND		g_hWnd;
 HINSTANCE	g_hInst;                               // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+
+int g_iScreenX = 500;
+int g_iScreenY = 500;
+CMain* g_pMain = nullptr;
+
 
 // 이 코드 모듈에 들어 있는 함수의 정방향 선언입니다.
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -49,9 +54,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
 	CMain* pMain = new CMain(g_hWnd);
+	g_pMain = pMain;
+
 	pMain->Initialize();
 
 	bool bSwitch  = false;
+	bool bSwitch2 = false;
 
     // 기본 메시지 루프입니다.
     while (true)
@@ -72,21 +80,39 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else // Client
 		{
-			if (false == bSwitch)
-			{
-				pMain->Render();
+			bSwitch2 = bSwitch;
 
-				bSwitch = true;
-			}
-			if (true == bSwitch)
+			pMain->Render();
+
+			if (GetAsyncKeyState('S') && GetAsyncKeyState(VK_CONTROL))
 			{
-				if (GetAsyncKeyState(VK_SPACE))
+				bSwitch = true;
+
+				if (bSwitch != bSwitch2)
 				{
-					bSwitch = false;
+					if (false == pMain->CheckNowRendering())
+					{
+						if (MessageBox(g_hWnd, _T("렌더링을 시작하시겠습니까?"), L"알림", MB_YESNO))
+						{
+							pMain->RenderCall();
+						}
+					}
+					else
+					{
+						if (MessageBox(g_hWnd, _T("렌더링을 취소하시겠습니까?"), L"알림", MB_YESNO))
+						{
+							pMain->ExitProgram();
+						}
+					}
 				}
 			}
+			else
+				bSwitch = false;
+			
 		}
     }
+	pMain->ExitProgram();
+
 	delete pMain;
     return (int) msg.wParam;
 }
@@ -162,6 +188,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_DESTROY:
+		// 여기에 스레드 대기 코드 추가
         PostQuitMessage(0);
         break;
 	case WM_QUIT:

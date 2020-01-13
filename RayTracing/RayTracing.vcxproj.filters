@@ -109,6 +109,18 @@
     <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material\0x04 Isotropic">
       <UniqueIdentifier>{68d09d43-c348-42b0-84eb-e9a138cd108e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle">
+      <UniqueIdentifier>{eb5a6622-9254-46ca-b2a4-3dbcbf071287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleXY">
+      <UniqueIdentifier>{0bc683b3-9201-4f93-b20a-7d7cf3c73c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleXZ">
+      <UniqueIdentifier>{7fda5c58-f7ad-4e37-94c3-b095ecb8bbec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleZY">
+      <UniqueIdentifier>{bc9a7dde-8a62-42a3-a225-0535931c3bd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -225,6 +237,15 @@
     <ClInclude Include="Isotropic.h">
       <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x04 Isotropic</Filter>
     </ClInclude>
+    <ClInclude Include="RectangleXY.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleXY</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleXZ.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleXZ</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleZY.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleZY</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -319,6 +340,15 @@
     </ClCompile>
     <ClCompile Include="Isotropic.cpp">
       <Filter>0x02 FieldObject\0x00 Component\0x02 Material\0x04 Isotropic</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleXY.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleXY</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleXZ.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleXZ</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleZY.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleZY</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

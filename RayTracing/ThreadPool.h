@@ -29,6 +29,8 @@ public:
 	static void Push(TASK tTask);
 	static void WakeThreads(void);
 	static void MainWait(void);
+
+	static bool CheckNowRunning(void);
 public:
 	static std::mutex g_PublicMutex;
 private:

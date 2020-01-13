@@ -1,5 +1,16 @@
 #pragma once
 
+
+
+//#ifdef _DEBUG
+//#pragma comment(lib, "ThirdParty/Library/Debug/libfbxsdk.lib")
+//#pragma comment(lib, "ThirdParty/Library/Debug/libfbxsdk-md.lib")
+//#elif NDEBUG
+//#pragma comment(lib, "ThirdParty/Library/Release/libfbxsdk-md.lib")
+//#endif 
+
+
+
 #include <fbxsdk.h>
 #include <string>
 #include <vector>

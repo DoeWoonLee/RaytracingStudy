@@ -201,6 +201,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>./ThirdParty/Library/Debug/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -305,6 +306,9 @@
     <ClInclude Include="Public.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RayTracing.h" />
+    <ClInclude Include="RectangleXY.h" />
+    <ClInclude Include="RectangleXZ.h" />
+    <ClInclude Include="RectangleZY.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Sphere.h" />
@@ -341,6 +345,9 @@
     <ClCompile Include="Metal.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RayTracing.cpp" />
+    <ClCompile Include="RectangleXY.cpp" />
+    <ClCompile Include="RectangleXZ.cpp" />
+    <ClCompile Include="RectangleZY.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="stdafx.cpp">

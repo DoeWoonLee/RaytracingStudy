@@ -79,7 +79,7 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 	HitRecord Record;
 	CFieldObject* pHitedObject = nullptr;
 
-	for (; iDepth < 50 && true == bHit; ++iDepth)
+	for (; iDepth < 10 && true == bHit; ++iDepth)
 	{
 		fMax = FLT_MAX;
 		bHit = false;

@@ -121,6 +121,12 @@
     <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleZY">
       <UniqueIdentifier>{bc9a7dde-8a62-42a3-a225-0535931c3bd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0x03 Utility\0x99 LogMgr">
+      <UniqueIdentifier>{fbced645-50fb-4c41-860d-228aa2d19352}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x98 Header">
+      <UniqueIdentifier>{df740022-e08e-4248-83e2-11c0e375376c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -246,6 +252,12 @@
     <ClInclude Include="RectangleZY.h">
       <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleZY</Filter>
     </ClInclude>
+    <ClInclude Include="LogMgr.h">
+      <Filter>0x03 Utility\0x99 LogMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>0x98 Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -350,6 +362,9 @@
     <ClCompile Include="RectangleZY.cpp">
       <Filter>0x02 FieldObject\0x00 Component\0x01 Resource\0x04 Rectangle\RectangleZY</Filter>
     </ClCompile>
+    <ClCompile Include="LogMgr.cpp">
+      <Filter>0x03 Utility\0x99 LogMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RayTracing.rc">
@@ -363,5 +378,8 @@
     <Image Include="RayTracing.ico">
       <Filter>0x99 Default\리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

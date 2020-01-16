@@ -181,6 +181,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>./ThirdParty/Include/64x/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Wv:19.14 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -287,6 +288,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantMedium.h" />
+    <ClInclude Include="Macros.h" />
     <ClInclude Include="Dielectric.h" />
     <ClInclude Include="DiffuseLight.h" />
     <ClInclude Include="FBXLoader.h" />
@@ -296,6 +298,7 @@
     <ClInclude Include="KDTree.h" />
     <ClInclude Include="KDTreeStructs.h" />
     <ClInclude Include="Lambertain.h" />
+    <ClInclude Include="LogMgr.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MathUtility.h" />
@@ -336,6 +339,7 @@
     <ClCompile Include="Isotropic.cpp" />
     <ClCompile Include="KDTree.cpp" />
     <ClCompile Include="Lambertain.cpp" />
+    <ClCompile Include="LogMgr.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MathUtility.cpp" />
@@ -372,6 +376,9 @@
   <ItemGroup>
     <Image Include="RayTracing.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -27,6 +27,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+RayTracing/Logs
 RayTracing/ThirdParty/*
 Debug
 ipch

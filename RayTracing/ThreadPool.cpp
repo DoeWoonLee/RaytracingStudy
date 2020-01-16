@@ -63,6 +63,7 @@ void CThreadPool::Run(int iIndex)
 		g_iRunningThread++;
 		if (g_iRunningThread == g_iTaskCnt)
 		{
+			g_iTaskCnt = g_iRunningThread = 0;
 			g_MainCV.notify_one();
 		}
 		g_mutex.unlock();

@@ -6,7 +6,7 @@
 
 class CBox : public CResources
 {
-private:
+public:
 	CBox(const vec3& vMin, const vec3& vMax);
 public:
 	DECLARE_CREATE_BY_MEMORYPOOL(CBox, CMemoryPool::OBJECT)

@@ -17,6 +17,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include "Public.h"
+#include "LogMgr.h"
 
 #define SAFE_DELETE(p) if(p != nullptr) {delete p; p = nullptr;}
 

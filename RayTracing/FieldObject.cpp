@@ -6,16 +6,17 @@
 #include "Transform.h"
 #include "Utility.h"
 #include "AABB.h"
+#include "LogMgr.h"
 
 CFieldObject::CFieldObject(void)
 {
 	// Default Create
 	// Sphere
-	m_pResource =  CMemoryPool::Allocate<CSphere>::NEW(CMemoryPool::OBJECT);
+	m_pResource =  CMemoryPool::New<CSphere>(CMemoryPool::OBJECT);
 	// Lambertain
-	m_pMaterial = CMemoryPool::Allocate<CLambertain>::NEW(CMemoryPool::OBJECT);
+	m_pMaterial = CMemoryPool::New<CLambertain>(CMemoryPool::OBJECT);
 	// Origin Coordinate
-	m_pTransform = CMemoryPool::Allocate<CTransform>::NEW(CMemoryPool::OBJECT);
+	m_pTransform = CMemoryPool::New<CTransform>(CMemoryPool::OBJECT);
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
@@ -24,11 +25,11 @@ CFieldObject::CFieldObject(const vec3 & vPos)
 {
 	// Default Create
 	// Sphere
-	m_pResource = CMemoryPool::Allocate<CSphere>::NEW(CMemoryPool::OBJECT);
+	m_pResource = CMemoryPool::New<CSphere>(CMemoryPool::OBJECT);
 	// Lambertain
-	m_pMaterial = CMemoryPool::Allocate<CLambertain>::NEW(CMemoryPool::OBJECT);
+	m_pMaterial = CMemoryPool::New<CLambertain>(CMemoryPool::OBJECT);
 	// Origin Coordinate
-	m_pTransform = CMemoryPool::Allocate<CTransform>::NEW(CMemoryPool::OBJECT, vPos);
+	m_pTransform = CMemoryPool::New<CTransform>(CMemoryPool::OBJECT, vPos);
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
@@ -37,13 +38,21 @@ CFieldObject::CFieldObject(CTransform * pTransform):
 	m_pTransform(pTransform)
 {
 	// Sphere
-	m_pResource = CMemoryPool::Allocate<CSphere>::NEW(CMemoryPool::OBJECT);
+	m_pResource = CMemoryPool::New<CSphere>(CMemoryPool::OBJECT);
 	// Lambertain
-	m_pMaterial = CMemoryPool::Allocate<CLambertain>::NEW(CMemoryPool::OBJECT);
+	m_pMaterial = CMemoryPool::New<CLambertain>(CMemoryPool::OBJECT);
 
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
+
+CFieldObject::CFieldObject(const std::wstring & Name, CTransform * pTransform, CResources * pResource, CMaterial * pMaterial) :
+	m_Name(Name), m_pTransform(pTransform), m_pResource(pResource), m_pMaterial(pMaterial)
+{
+	// AABB
+	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
+}
+
 
 CFieldObject::CFieldObject(CTransform * pTransform, CResources * pResource, CMaterial * pMaterial):
 	m_pTransform(pTransform), m_pResource(pResource), m_pMaterial(pMaterial)
@@ -65,6 +74,8 @@ bool CFieldObject::Hit(HitRecord& Record, const CRay & inRay,float & fMin, float
 
 		if (m_pResource->Hit(InverseRay, fMin, fMax, Record))
 		{
+			
+
 			fMax = Record.fTime;
 			Record.vPos = inRay.PointAtParameter(fMax);
 
@@ -95,3 +106,9 @@ const CAABB * CFieldObject::GetAABB(void)
 {
 	return m_pAABB;
 }
+
+const std::wstring & CFieldObject::GetName(void)
+{
+	return m_Name;
+}
+

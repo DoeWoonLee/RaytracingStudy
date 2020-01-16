@@ -103,7 +103,7 @@ bool CBVHTree::Hit(const CRay & inRay, float& fMin, float & fMax, HitRecord & hi
 		bHitLeft = m_pLeft->Hit(inRay, fMin, fMax, LRec, pFieldObject);
 		bHitRight = m_pRight->Hit(inRay, fMin, fMax, RRec, pFieldObject);
 	}
-	
+
 	if (bHitLeft & bHitRight)
 	{
 		if (LRec.fTime < RRec.fTime)

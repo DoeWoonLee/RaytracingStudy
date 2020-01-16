@@ -1,13 +1,19 @@
 #pragma once
 
+#include "Macros.h"
+
 #include <vector>
 #include <list>
 #include <mutex>
 
-
-
 class CMemoryPool
 {
+// ================== Single Tone ==================
+public:
+	DECLARE_SINGLETON(CMemoryPool)
+private:
+	CMemoryPool();
+	~CMemoryPool();
 	// Inner Sturcts
 private:
 	struct MEMORY_PAGE {
@@ -24,34 +30,23 @@ public:
 		KD_TREE,
 		MEMORY_INDEX_END
 	};
-	template<typename T>
-	class Allocate
+
+	template<class T, class ... Args>
+	static T* New(MEMORY_INDEX eType, Args ...Arguments)
 	{
-	public:
-		template<class... Args>
-		inline static T* NEW (MEMORY_INDEX eType, Args... Arguments)
-		{
-			BYTE* pMemory = CMemoryPool::GetInstance()->GetMemory(eType, sizeof(T));
-			return new (pMemory) T(Arguments...);
-		}
-	};
+		void* pMemory = CMemoryPool::GetInstance()->GetMemory(eType, sizeof(T), alignof(T));
+		T* pNewData = new (pMemory) T(Arguments...);
+		_ASSERT(pNewData != nullptr);
+		return pNewData;
+	}
 public: // Public Functions 
-	void DefaultSetting(void);
-	BYTE* GetMemory(MEMORY_INDEX eMemoryType, UINT uiNeedSize);
+	void ReadyMemoryPool(void);
+	BYTE* GetMemory(MEMORY_INDEX eMemoryType, UINT uiNeedSize, uint8_t alignment);
 private: // Private Function
 
 private: // Member Values
 	std::vector<std::list<MEMORY_PAGE*>> m_vecMemorys;
 	std::mutex m_Mutex;
-// ================== Single Tone ==================
-private:
-	static CMemoryPool* m_pInstance;
-private:
-	explicit CMemoryPool();
-	~CMemoryPool();
-public:
-	static CMemoryPool* GetInstance();
-	void DestroyInstance(void);
 
 };
 
@@ -59,7 +54,7 @@ public:
 //template<class... Args>									\
 //static CLASSTYPE* Create(Args... Arguments)				\
 //{														\
-//	return CMemoryPool::Allocate<CLASSTYPE>::NEW(MEMORY_TYPE, Arguments...);\
+//	return CMemoryPool::New<CLASSTYPE>(MEMORY_TYPE, Arguments...);\
 //}
 
 #define DECLARE_CREATE_BY_MEMORYPOOL(CLASSTYPE, MEMORY_TYPE) \

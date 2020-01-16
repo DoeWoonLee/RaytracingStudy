@@ -23,6 +23,10 @@
 #include "BVHTree.h"
 #include "DiffuseLight.h"
 
+
+#include "LogMgr.h"
+
+
 vec3 g_vCamDir;
 CMain::CMain(HWND hWnd):
 	m_pScreenBuffers(nullptr),
@@ -37,25 +41,30 @@ CMain::~CMain(void)
 	ReleaseDC(m_hWnd, m_hdc);
 
 	CMemoryPool::GetInstance()->DestroyInstance();
+	CLogMgr::GetInstance()->DestroyInstance();
+
 
 	delete[] m_pScreenBuffers;
 	//SAFE_DELETE(m_pCamera);
 }
 void MakeSongPyeongMap(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects)
 {
-	*ppCamera = CMemoryPool::Allocate<CCamera>::NEW(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
+	*ppCamera = CMemoryPool::New<CCamera>(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
 
 	CMesh* pEagle = CMesh::Create(std::string("../Scene/Eagle.fbx"));
 
-	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(), vec3(-XMConvertToRadians(90.f), XMConvertToRadians(225.f), 0.f), vec3(28.f, 28.f, 28.f)), pEagle, CDielectric::Create(vec3(0.75f, 0.929f, 1.f), 1.6f)));
+	vecFieldObjects.push_back(CFieldObject::Create(
+		_T("Eagle"),CTransform::Create(vec3(), vec3(-XMConvertToRadians(90.f), XMConvertToRadians(225.f), 0.f), vec3(28.f, 28.f, 28.f)), pEagle, CDielectric::Create(vec3(0.75f, 0.929f, 1.f), 1.6f)));
+
 
 	CMesh* pSongPyeon = CMesh::Create(std::string("../Scene/SongPyeon.fbx"));
-	CBox* pBox = CBox::Create(vec3(-0.5f, 0.f, -0.5f), vec3(0.5f, 1.f, 0.5f));
+	
 
-	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(), vec3(-XMConvertToRadians(90.f), 0.f, 0.f), vec3(2.f, 2.f, 2.f)), CMesh::Create(std::string("../Scene/Plate.fbx")), CDielectric::Create(1.2f)));
+	//vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(), vec3(-XMConvertToRadians(90.f), 0.f, 0.f), vec3(2.f, 2.f, 2.f)), CMesh::Create(std::string("../Scene/Plate.fbx")), CDielectric::Create(1.2f)));
 
-	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(3.5f, 0.5f, 0.f)), pSongPyeon, CMetal::Create(vec3(0.7f, 0.4f, 0.2f))));
-
+	vecFieldObjects.push_back(CFieldObject::Create(
+		_T("Place"),CTransform::Create(vec3(3.5f, 0.5f, 0.f)), pSongPyeon, CMetal::Create(vec3(0.7f, 0.4f, 0.2f))));
+#if 0
 	vec3 vRotate = vec3(0.f, -XMConvertToRadians(45.f), 0.f);
 	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(2.5f, 0.5f, 2.5f), vRotate), pSongPyeon, CMetal::Create(vec3(0.23f, 0.6f, 0.3f), 1.f)));
 
@@ -78,7 +87,7 @@ void MakeSongPyeongMap(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldO
 	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(2.5f, 0.5f, -2.5f), vRotate), pSongPyeon, CDielectric::Create(vec3(0.f, 0.75f, 1.f), 1.2f)));
 
 	// ¹Ù´Ú
-	
+	CBox* pBox = CBox::Create(vec3(-0.5f, 0.f, -0.5f), vec3(0.5f, 1.f, 0.5f));
 	CLambertain* pLambertain = CLambertain::Create(vec3(0.48f, 0.83f, 0.53f));
 	for (int x = -7; x < 15; ++x)
 	{
@@ -90,7 +99,7 @@ void MakeSongPyeongMap(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldO
 			vecFieldObjects.push_back(CFieldObject::Create(pTransform, pBox, pLambertain));
 		}
 	}
-
+#endif
 	// ¾È°³
 	/*vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(0.f, 5.f, 0.f), vec3(), vec3(8.f, 6.f, 8.f)), CConstantMedium::Create(CSphere::Create(vec3(), 1.f), 0.03f), CIsotropic::Create(vec3(1.f, 0.9f, 0.f))));
 
@@ -98,7 +107,7 @@ void MakeSongPyeongMap(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldO
 }
 void TestScene(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects)
 {
-	*ppCamera = CMemoryPool::Allocate<CCamera>::NEW(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
+	*ppCamera = CMemoryPool::New<CCamera>(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
 
 	//vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(), CBox::Create(vec3(-2.5f, 0.f, -2.5f), vec3(2.5f, 5.f, 2.5f)), CMetal::Create(vec3(0.f, 0.7f, 1.f))));
 
@@ -115,19 +124,20 @@ void TestScene(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects)
 }
 void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects)
 {
-	*ppCamera = CMemoryPool::Allocate<CCamera>::NEW(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
+	*ppCamera = CMemoryPool::New<CCamera>(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
 
 	 
 }
 void CMain::Initialize(void)
 {
-	CMemoryPool::GetInstance()->DefaultSetting();
-
+	CMemoryPool::GetInstance()->ReadyMemoryPool();
+	CLogMgr::GetInstance()->ReadyLogMgr();
+	
 
 	CThreadPool::InitThreads();
 
-	//MakeSongPyeongMap(m_vecObjects);
-	TestScene(&m_pCamera, m_vecObjects);
+	MakeSongPyeongMap(&m_pCamera, m_vecObjects);
+	//TestScene(&m_pCamera, m_vecObjects);
 	//ConrnellBox(&m_pCamera, m_vecObjects);
 
 	m_pBVHTree = CBVHTree::Create(0, (UINT)m_vecObjects.size(), m_vecObjects);

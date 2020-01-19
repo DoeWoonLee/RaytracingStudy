@@ -2,11 +2,11 @@
 
 #include "Vector3.h"
 
-class Texture
+class ITexture
 {
 public:
-	Texture(void) : m_Ref(0) {}
-	virtual ~Texture(void) {}
+	ITexture(void) : m_Ref(0) {}
+	virtual ~ITexture(void) {}
 public:
 	virtual const vec3& Value(const float& u, const float& v, const vec3& p) const = 0;
 	void AddRef(void) { m_Ref++; }

@@ -10,7 +10,7 @@ CLambertain::CLambertain(void) :
 	
 }
 
-CLambertain::CLambertain(Texture* pTexture) :
+CLambertain::CLambertain(ITexture* pTexture) :
 	m_pAlbedo(pTexture)
 {
 	m_pAlbedo->AddRef();

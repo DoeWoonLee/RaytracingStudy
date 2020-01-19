@@ -2,7 +2,7 @@
 
 #include "Texture.h"
 
-class ConstantTexture : public Texture
+class ConstantTexture : public ITexture
 {
 public:
 	ConstantTexture() {}

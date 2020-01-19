@@ -288,6 +288,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantMedium.h" />
+    <ClInclude Include="ConstantTexture.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Dielectric.h" />
     <ClInclude Include="DiffuseLight.h" />
@@ -317,12 +318,15 @@
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Utility.h" />
+    <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="XMMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
@@ -332,6 +336,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantMedium.cpp" />
+    <ClCompile Include="ConstantTexture.cpp" />
     <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="DiffuseLight.cpp" />
     <ClCompile Include="FBXLoader.cpp" />

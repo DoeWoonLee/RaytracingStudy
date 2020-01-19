@@ -2,6 +2,7 @@
 #pragma  warning (disable : 4275)
 
 #include <DirectXMath.h>
+#include "XMMacros.h"
 using namespace DirectX;
 
 

@@ -127,6 +127,12 @@
     <Filter Include="0x98 Header">
       <UniqueIdentifier>{df740022-e08e-4248-83e2-11c0e375376c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x04 Texture">
+      <UniqueIdentifier>{8e864803-b480-4036-bcba-2d7aa0e8770d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x04 Texture\ConstantTexture">
+      <UniqueIdentifier>{6e159392-44be-4ff8-9d1b-d1e435804296}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -258,6 +264,18 @@
     <ClInclude Include="Macros.h">
       <Filter>0x98 Header</Filter>
     </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>0x01 DataStructure\0x00 Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="XMMacros.h">
+      <Filter>0x01 DataStructure\0x00 Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x04 Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantTexture.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x04 Texture\ConstantTexture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -364,6 +382,9 @@
     </ClCompile>
     <ClCompile Include="LogMgr.cpp">
       <Filter>0x03 Utility\0x99 LogMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantTexture.cpp">
+      <Filter>0x99 Default\소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

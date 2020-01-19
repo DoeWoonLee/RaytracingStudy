@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector3.h"
+#include "Vector2.h"
 
 struct HitRecord
 {
@@ -8,5 +9,6 @@ struct HitRecord
 	vec3 vNormal;
 	vec3 vAlbedo;
 	vec3 vEmitted;
+	vec2 vUV;
 	float fTime;
 };

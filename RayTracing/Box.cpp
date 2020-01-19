@@ -92,6 +92,7 @@ bool CBox::Hit(const CRay & inRay, float & fMin, float & fMax, HitRecord & hitRe
 	if (bHit)
 	{
 		hitRecord.fTime = fResultTime;
+		//hitRecord.vPos = inRay.PointAtParameter(hitRecord.fTime);
 		hitRecord.vNormal = vNormal;
 		return true;
 	}

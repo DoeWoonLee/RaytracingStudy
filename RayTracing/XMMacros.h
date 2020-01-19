@@ -1,0 +1,7 @@
+#pragma once
+
+
+#define GetSX(XMVECTOR) XMVECTOR.m128_f32[0]
+#define GetSY(XMVECTOR) XMVECTOR.m128_f32[1]
+#define GetSZ(XMVECTOR) XMVECTOR.m128_f32[2]
+#define GetSW(XMVECTOR) XMVECTOR.m128_f32[3]

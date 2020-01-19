@@ -49,7 +49,7 @@ CMain::~CMain(void)
 }
 void MakeSongPyeongMap(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects)
 {
-	*ppCamera = CMemoryPool::New<CCamera>(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
+	*ppCamera = CMemoryPool::New<CCamera>(CMemoryPool::OBJECT, vec3(0.f, 15.f, 0.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
 
 	CMesh* pEagle = CMesh::Create(std::string("../Scene/Eagle.fbx"));
 
@@ -57,14 +57,16 @@ void MakeSongPyeongMap(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldO
 		_T("Eagle"),CTransform::Create(vec3(), vec3(-XMConvertToRadians(90.f), XMConvertToRadians(225.f), 0.f), vec3(28.f, 28.f, 28.f)), pEagle, CDielectric::Create(vec3(0.75f, 0.929f, 1.f), 1.6f)));
 
 
-	CMesh* pSongPyeon = CMesh::Create(std::string("../Scene/SongPyeon.fbx"));
+	/*CMesh* pSongPyeon = CMesh::Create(std::string("../Scene/SongPyeon.fbx"));
 	
 
+	
+	vecFieldObjects.push_back(CFieldObject::Create(
+		_T("SongPyeon"),CTransform::Create(vec3(0.0f, 0.0f, 0.f)), pSongPyeon, CMetal::Create(vec3(0.7f, 0.4f, 0.2f))));*/
+
+#if 0
 	//vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(), vec3(-XMConvertToRadians(90.f), 0.f, 0.f), vec3(2.f, 2.f, 2.f)), CMesh::Create(std::string("../Scene/Plate.fbx")), CDielectric::Create(1.2f)));
 
-	vecFieldObjects.push_back(CFieldObject::Create(
-		_T("Place"),CTransform::Create(vec3(3.5f, 0.5f, 0.f)), pSongPyeon, CMetal::Create(vec3(0.7f, 0.4f, 0.2f))));
-#if 0
 	vec3 vRotate = vec3(0.f, -XMConvertToRadians(45.f), 0.f);
 	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(2.5f, 0.5f, 2.5f), vRotate), pSongPyeon, CMetal::Create(vec3(0.23f, 0.6f, 0.3f), 1.f)));
 

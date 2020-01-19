@@ -30,6 +30,13 @@ thread_local XMVECTOR sDir;
 thread_local XMVECTOR sOrigin;
 thread_local XMVECTOR R;
 
+void GetSphereUV(const vec3& p, vec2& vUV)
+{
+	float fPhi = atan2f(p.z, p.x);
+	float fTheta = asinf(p.y);
+	vUV.x = 1.f - (fPhi + XM_PI) / (2.f * XM_PI);
+	vUV.y = (fTheta + XM_PI / 2.f) / XM_PI;
+}
 bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& hitRecord)const
 {
 	sCenter = m_vCenter.ToSIMD();
@@ -53,7 +60,7 @@ bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& 
 			hitRecord.fTime = T;
 			hitRecord.vPos = InputRay.PointAtParameter(T);
 			hitRecord.vNormal.LoadSIMD((hitRecord.vPos.ToSIMD() - m_vCenter.ToSIMD()) / m_fRadius);
-
+			GetSphereUV(hitRecord.vPos, hitRecord.vUV);
 			return true;
 		}
 
@@ -64,6 +71,8 @@ bool CSphere::Hit(const CRay & InputRay, float & fMin, float & fMax, HitRecord& 
 			hitRecord.fTime = T;
 			hitRecord.vPos = InputRay.PointAtParameter(T);
 			hitRecord.vNormal.LoadSIMD((hitRecord.vPos.ToSIMD() - m_vCenter.ToSIMD()) / m_fRadius);
+			GetSphereUV(hitRecord.vPos, hitRecord.vUV);
+
 			return true;
 		}
 	}

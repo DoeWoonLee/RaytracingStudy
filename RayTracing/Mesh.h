@@ -12,7 +12,9 @@ class CMesh : public CResources
 {
 public:
 	CMesh(std::string strFilePath);
+protected:
 	virtual ~CMesh(void);
+public:
 	virtual void MakeMinMax();
 	void SetMeshInfo(const std::vector<VERTEX>& vecVertices,
 		const void* pIndices,

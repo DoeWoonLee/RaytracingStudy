@@ -282,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
+    <ClInclude Include="BaseClass.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="BVHLeaf.h" />
     <ClInclude Include="BVHTree.h" />
@@ -330,6 +331,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
+    <ClCompile Include="BaseClass.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="BVHLeaf.cpp" />
     <ClCompile Include="BVHTree.cpp" />

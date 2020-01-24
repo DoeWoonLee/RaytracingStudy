@@ -23,7 +23,7 @@ float Schlick(const float& fCosine,const float& fRefIdx)
 	r0 = r0 * r0;
 	return r0 + (1.f - r0) * powf(1.f - fCosine, 5);
 }
-bool CDielectric::Scatter(HitRecord & Record, const CRay & InRay, CRay & OutRay, vec3 & vColor)
+bool CDielectric::Scatter(HitRecord & Record, const CRay & InRay, CRay & OutRay, vec3 & vColor, float& fPdf)const
 {
 	vec3 vOutwardNormal;
 	vec3 vScattered;

@@ -79,7 +79,6 @@ CAABB* CBVHTree::SurroundingBox(CBVHTree * pLeft, CBVHTree * pRight)
 		fmax(pLAABB->Max().y, pRAABB->Max().y),
 		fmax(pLAABB->Max().z, pRAABB->Max().z));
 
-	//return CMemoryPool::Allocate<CAABB>::NEW(CMemoryPool::BVH_TREE, vMin, vMax);
 	return new CAABB(vMin, vMax);
 }
 const CAABB * CBVHTree::GetAABB(void) const

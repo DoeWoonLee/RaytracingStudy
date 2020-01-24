@@ -2,3 +2,4 @@
 // 해석하는 데 도움이 됩니다.
 // 자세한 내용은 다음을 참조하세요. https://go.microsoft.com/fwlink/?linkid=865984
 #define DECLARE_SINGLETON(CLASSNAME) NO_COPY(CLASSNAME) private: static CLASSNAME* m_pInstance; public: static CLASSNAME* GetInstance( void ) noexcept; static void DestroyInstance( void ); private:
+#define DECLARE_CREATE_BY_MEMORYPOOL(CLASSTYPE, MEMORY_TYPE) template<class... Args> static CLASSTYPE* Create(Args... Arguments) { return new CLASSTYPE(Arguments...);}

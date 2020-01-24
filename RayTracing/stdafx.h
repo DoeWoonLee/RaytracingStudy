@@ -20,5 +20,6 @@
 #include "LogMgr.h"
 
 #define SAFE_DELETE(p) if(p != nullptr) {delete p; p = nullptr;}
-
+#define SAFE_RELEASE(p) if(p != nullptr) { if(0 == p->Release()) {p = nullptr;}}
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
+

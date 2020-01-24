@@ -133,6 +133,9 @@
     <Filter Include="0x02 FieldObject\0x00 Component\0x04 Texture\ConstantTexture">
       <UniqueIdentifier>{6e159392-44be-4ff8-9d1b-d1e435804296}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BaseClass">
+      <UniqueIdentifier>{9a93cffb-778b-45c8-90e7-66cdd0150fba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -276,6 +279,9 @@
     <ClInclude Include="ConstantTexture.h">
       <Filter>0x02 FieldObject\0x00 Component\0x04 Texture\ConstantTexture</Filter>
     </ClInclude>
+    <ClInclude Include="BaseClass.h">
+      <Filter>BaseClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -385,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="ConstantTexture.cpp">
       <Filter>0x99 Default\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseClass.cpp">
+      <Filter>BaseClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

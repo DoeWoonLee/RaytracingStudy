@@ -19,6 +19,9 @@ CSphere::CSphere(const vec3 & vCenter, const float & fRadius) :
 {
 	MakeMinMax();
 }
+CSphere::~CSphere()
+{
+}
 void CSphere::MakeMinMax()
 {
 	m_vMin = vec3(-m_fRadius + m_vCenter.x, -m_fRadius + m_vCenter.y, -m_fRadius + m_vCenter.z);

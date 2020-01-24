@@ -10,6 +10,9 @@ public:
 	explicit CSphere();
 	explicit CSphere(const float& fRadius);
 	explicit CSphere(const vec3& vCenter,const float& fRadius);
+protected:
+	virtual ~CSphere();
+public:
 	virtual void MakeMinMax();
 	virtual bool Hit(const CRay& InputRay, float& fMin, float & fMax, HitRecord& hitRecord)const;
 

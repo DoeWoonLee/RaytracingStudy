@@ -3,10 +3,11 @@
 #include "Ray.h"
 #include "HitRecord.h"
 #include <float.h>
+#include "BaseClass.h"
 
-class CResources
+class CResources : public IBaseClass
 {
-public:
+protected:
 	virtual ~CResources() {}
 public:
 	virtual void MakeMinMax() {};

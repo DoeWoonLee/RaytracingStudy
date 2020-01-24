@@ -6,6 +6,8 @@
 #include <list>
 #include <mutex>
 
+#define MEMORYPOOLUSE
+
 class CMemoryPool
 {
 // ================== Single Tone ==================

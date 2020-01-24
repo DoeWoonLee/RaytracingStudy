@@ -5,6 +5,12 @@ CBox::CBox(const vec3 & vMin, const vec3 & vMax)
 {
 	m_vMin = vMin;
 	m_vMax = vMax;
+
+	MakeMinMax();
+}
+
+CBox::~CBox(void)
+{
 }
 
 bool CBox::Hit(const CRay & inRay, float & fMin, float & fMax, HitRecord & hitRecord)const
@@ -26,7 +32,7 @@ bool CBox::Hit(const CRay & inRay, float & fMin, float & fMax, HitRecord & hitRe
 		if (!(vPos.y < m_vMin.y || vPos.y > m_vMax.y ||
 			vPos.z < m_vMin.z || vPos.z > m_vMax.z))
 		{
-			fResultTime = t; vNormal = vec3(-1.f, 0.f, 0.f); bHit = true;
+			fResultTime = t; vNormal = vec3(1.f, 0.f, 0.f); bHit = true;
 
 		}
 	}
@@ -38,7 +44,7 @@ bool CBox::Hit(const CRay & inRay, float & fMin, float & fMax, HitRecord & hitRe
 		if (!(vPos.y < m_vMin.y || vPos.y > m_vMax.y ||
 			vPos.z < m_vMin.z || vPos.z > m_vMax.z))
 		{
-			fResultTime = t; vNormal = vec3(1.f, 0.f, 0.f); bHit = true;
+			fResultTime = t; vNormal = vec3(-1.f, 0.f, 0.f); bHit = true;
 		}
 	}
 
@@ -74,7 +80,7 @@ bool CBox::Hit(const CRay & inRay, float & fMin, float & fMax, HitRecord & hitRe
 		if (!(vPos.x < m_vMin.x || vPos.x > m_vMax.x ||
 			vPos.y < m_vMin.y || vPos.y > m_vMax.y))
 		{
-			fResultTime = t; vNormal = vec3(0.f, 0.f, 1.f); bHit = true;
+			fResultTime = t; vNormal = vec3(0.f, 0.f, -1.f); bHit = true;
 		}
 	}
 
@@ -86,7 +92,7 @@ bool CBox::Hit(const CRay & inRay, float & fMin, float & fMax, HitRecord & hitRe
 		if (!(vPos.x < m_vMin.x || vPos.x > m_vMax.x ||
 			vPos.y < m_vMin.y || vPos.y > m_vMax.y))
 		{
-			fResultTime = t; vNormal = vec3(0.f, 0.f, -1.f); bHit = true;
+			fResultTime = t; vNormal = vec3(0.f, 0.f, 1.f); bHit = true;
 		}
 	}
 	if (bHit)

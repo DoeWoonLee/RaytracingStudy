@@ -11,7 +11,7 @@ public:
 	explicit CDiffuseLight(const vec3& vLight);
 	DECLARE_CREATE_BY_MEMORYPOOL(CDiffuseLight, CMemoryPool::OBJECT)
 
-	virtual bool Scatter(HitRecord& Record, const CRay& InRay, CRay& OutRay, vec3& vColor) { return false; }
+	virtual bool Scatter(HitRecord& Record, const CRay& InRay, CRay& OutRay, vec3& vColor, float& fPdf)const override{ return false;}
 	virtual vec3 Emitted(const vec3& vPos);
 private:
 	vec3 m_vLight;

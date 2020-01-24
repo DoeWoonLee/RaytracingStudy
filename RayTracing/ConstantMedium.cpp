@@ -7,6 +7,10 @@ CConstantMedium::CConstantMedium(const CResources * pResource, const float & fDe
 	MakeMinMax();
 }
 
+CConstantMedium::~CConstantMedium(void)
+{
+}
+
 void CConstantMedium::MakeMinMax()
 {
 	m_vMin = m_pResource->Min();

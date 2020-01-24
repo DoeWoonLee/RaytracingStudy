@@ -17,7 +17,7 @@ CMetal::CMetal(const vec3 & vAlbedo, const float & fFuzzy):
 {
 }
 
-bool CMetal::Scatter(HitRecord & Record, const CRay& InRay, CRay & OutRay, vec3 & vColor)
+bool CMetal::Scatter(HitRecord & Record, const CRay& InRay, CRay & OutRay, vec3 & vColor, float& fPdf)const
 {
 	float fDiscriminant = 0.f;
 

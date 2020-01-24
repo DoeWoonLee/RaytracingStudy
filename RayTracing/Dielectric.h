@@ -12,7 +12,7 @@ public:
 	DECLARE_CREATE_BY_MEMORYPOOL(CDielectric, CMemoryPool::OBJECT)
 
 
-	virtual bool Scatter(HitRecord& Record, const CRay& InRay, CRay& OutRay, vec3& vColor);
+	virtual bool Scatter(HitRecord& Record, const CRay& InRay, CRay& OutRay, vec3& vColor, float& fPdf)const override;
 private:
 	vec3 m_vAlbedo;
 	float m_fRefIdx;

@@ -22,6 +22,10 @@ CTriangle::CTriangle(vec3 v0, vec3 v1, vec3 v2)
 	m_vNormal = CMathUtility::NormalByTri(m_vPos[TRI_1], m_vPos[TRI_2], m_vPos[TRI_3]);
 }
 
+CTriangle::~CTriangle()
+{
+}
+
 void CTriangle::MakeMinMax()
 {
 	float fMin = 0.f;

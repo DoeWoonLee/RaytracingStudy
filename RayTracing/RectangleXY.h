@@ -1,19 +1,21 @@
 #pragma once
 
 #include "Resources.h"
+#include "Public.h"
 #include "MemoryPool.h"
 
 class CRectangleXY : public CResources
 {
-private:
-	CRectangleXY(const float fWidth, const float fHeight);
-
-	// functions
 public:
+	CRectangleXY(const float& fWidth, const float& fHeight);
 protected:
-private:
-	// Values
+	virtual ~CRectangleXY();
+public:
+	DECLARE_CREATE_BY_MEMORYPOOL(CRectangleXY, CMemoryPool::OBJECT)
 
-protected:
+	virtual void MakeMinMax() final;
+	virtual bool Hit(const CRay& inRay, float& fMin, float& fMax, HitRecord& hitRecord)const final;
 private:
+	float m_fWidth;
+	float m_fHeight;
 };

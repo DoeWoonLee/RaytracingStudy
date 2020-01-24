@@ -7,7 +7,7 @@ CIsotropic::CIsotropic(const vec3 & vAlbedo):
 {
 }
 
-bool CIsotropic::Scatter(HitRecord & Record, const CRay & InRay, CRay & OutRay, vec3 & vColor)
+bool CIsotropic::Scatter(HitRecord & Record, const CRay & InRay, CRay & OutRay, vec3 & vColor, float& fPdf)const
 {
 	vColor = m_vAlbedo;
 

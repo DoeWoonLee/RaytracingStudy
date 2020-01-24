@@ -3,13 +3,17 @@
 #include <float.h>
 #include "BVHTree.h"
 
+int g_MaxDepth = 50;
+
 void CUtility::GetSkyColor(float& y, vec3& vOut)
 {
-	XMVECTOR vLerp1 = DirectX::XMVectorSet(1.f, 1.f, 1.f, 0.f);
+	/*XMVECTOR vLerp1 = DirectX::XMVectorSet(1.f, 1.f, 1.f, 0.f);
 	XMVECTOR vLerp2 = DirectX::XMVectorSet(0.5f, 0.7f, 1.f, 0.f);
 	float t = 0.5f * (y + 1.0f);
 
-	XMStoreFloat3(&vOut, (1.0f - t) * vLerp1 + t * vLerp2);
+	XMStoreFloat3(&vOut, (1.0f - t) * vLerp1 + t * vLerp2);*/
+
+	vOut = vec3(0.f, 0.f, 0.f);
 }
 
 
@@ -26,6 +30,7 @@ void CUtility::GetPixelColor(CRay & Ray, std::vector<CFieldObject*>& vecFieldObj
 	size_t iHitIdx = -1;
 
 	HitRecord Record;
+	float fPdf = 0.f;
 
 	for (; iDepth < 10 && true == bHit; ++iDepth)
 	{
@@ -53,12 +58,12 @@ void CUtility::GetPixelColor(CRay & Ray, std::vector<CFieldObject*>& vecFieldObj
 		}
 		else
 		{
-			vecFieldObject[iHitIdx]->Scatter(Record, Ray, outRay, vNewColor);
+			vecFieldObject[iHitIdx]->Scatter(Record, Ray, outRay, vNewColor, fPdf);
 			vColor *= vNewColor;
 			Ray = outRay;
 		}
 	}
-	//vColor /= (float)iDepth;
+	vColor /= (float)iDepth;
 	vOutColor += vColor;
 
 }
@@ -75,11 +80,13 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 	bool bHit = true;
 	int iDepth = 0;
 	size_t iHitIdx = -1;
+	// Probability Density Function
+	float fPdf = 0.f;
 
 	HitRecord Record;
 	CFieldObject* pHitedObject = nullptr;
 
-	for (; iDepth < 10 && true == bHit; ++iDepth)
+	for (; iDepth < g_MaxDepth && true == bHit; ++iDepth)
 	{
 		fMax = FLT_MAX;
 		bHit = false;
@@ -91,24 +98,18 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 
 		if (false == bHit)
 		{
-
 			float fRayY = Ray.GetDirection().y;
 
 			GetSkyColor(fRayY, vNewColor);
 			vColor *= vNewColor;
-			//vColor *= vec3(0.0f, 0.0f, 0.0f);
 			break;
 		}
 		else
 		{
 			vEmittedLight = pHitedObject->Emitted(Record.vPos);
 
-			if (pHitedObject->Scatter(Record, Ray, outRay, vNewColor))
+			if (pHitedObject->Scatter(Record, Ray, outRay, vNewColor, fPdf))
 			{
-				//float fCos = fmax(-vec3::Dot(g_vCamDir, outRay.GetDirection()), 0.0f);
-				//fCos = powf(fCos, 22.f);
-				//vNewColor = vNewColor * (1.f - fCos) + vec3(1.5f, 1.5f, 1.5f) * (fCos);
-
 				vColor *= vNewColor + vEmittedLight;
 				Ray = outRay;
 			}

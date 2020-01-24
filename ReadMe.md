@@ -6,6 +6,12 @@
 
 - Start or Stop Rendering : Ctrl + S
 
+## About Release or Delete
+
+- 메모리 관리는 원래는 MemoryPool에 의해서 관리되게 할 예정
+- 메모리풀 문제로 new로인한 메모리 할당을 하고 있고, 해제 코드가 들어있다.
+	- MemoryPool의 #define MEMORYPOOLUSE 로 관리
+- 나중에 해제기능을 지원하는 메모리 풀을 만들었을 경우 결국엔 해제코드가 들어가야한다.
 
 
 ## FieldObject Class
@@ -13,10 +19,17 @@
 - 실질적으로 그려질 오브젝트들의 묶음을 담당한다.
   - 오브젝트의 특성은 `Component`들의 묶음으로 만들어진다.
 - Local -> World , World -> Local의 변환을 조절한다.
+- Material, Resource, Transform, AABB를 사용한다. 
+	- 이 데이터들은 동적할당으로 얻는 데이터이다.
+	- Resource만 중복으로 사용하고 `RefCnt`를 가지며, `SAFE_RELEASE()`함수를 사용한다.
+
+## BaseClass [ SuperClass ]
+- `RefCnt`를 관리하는 클래스이다.
+- 이 클래스를 상속 받으면 소멸자는 `protected: virtual ~Deconstructor()`형태이다.
+- `SAFE_RELEASE()`로 해제해야한다.
 
 
-
-## Component Class
+# Component
 
 - `FieldObject`에 의해 소유 되며 한 Container에 추상되기 위해서 존재한다.
 - 아직 사용하지 않음
@@ -39,15 +52,18 @@
 
 - `Texture`를 받아서 해당 Texture의 UV좌표로 색을 입힌다. (아직 추가되어지지 않음)
 
-  
+## AABB Class 
+
+- `Resource`의 AABB데이터를 `Transform`의 월드 행렬과 연산하여 월드기준 `AABB`를 얻는다.
+- `FieldObject`가 소유하며 `Component`로 취급할지는 미정 [ 2020-01-20 ]
+
+# Material 
 
 ## Lambertain Class [ Material ]
 
 - 표면이 거친정도가 있는 일반적인 물체를 말함.
-
 - OutRay = Normalize(Normal + RandomUnitSphereVector)
 
-  
 
 ## Metal Class [ Material ]
 
@@ -62,20 +78,19 @@
 - 광선이 물체를 투과하는 재질을 말함.
 - 스넬의 법칙이 적용되며, 생성시 인자로는 Refract Index를 받음
 
-
-
 ## DiffuseLight Class [ Material ]
 
-- 
+- 빛을 내는 물체를 표현
+- `Emmit()`함수로 표현한다.
 
 ## Isotropic Class [ Material ]
 
 
+# Texture
 
-
-
-
-
+## ConstantTexture [ Texture ]
+- 단일 색상을 표시하는 Texture
+- UV값이 필요 없다.
 
 
 ## Resources Class [ Component ]
@@ -88,6 +103,3 @@
 
 ## Mesh Class [ Resources ]
 
-
-
-## AABB Class [ Component ]

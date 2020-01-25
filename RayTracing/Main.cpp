@@ -29,7 +29,7 @@
 
 
 vec3 g_vCamDir;
-int g_iSample = 100;
+int g_iSample = 500;
 
 
 CMain::CMain(HWND hWnd):
@@ -195,14 +195,14 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 
 
 	// Rhight Short Box
-	pFieldObject = CFieldObject::Create(
+	/*pFieldObject = CFieldObject::Create(
 		CTransform::Create(
 			vec3(65.f, 87.5f, 147.5f),
 			vec3(0.f, XMConvertToRadians(15.f), 0.f),
 			vec3(165.f, 165.f, 165.f)),
 		pBox, CLambertain::Create(vWhite));
 
-	vecFieldObjects.push_back(pFieldObject);
+	vecFieldObjects.push_back(pFieldObject);*/
 
 	// Left Tall Box
 	
@@ -211,7 +211,7 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 			vec3(-70.f, 165.f, 407.5f),
 			vec3(0.f, XMConvertToRadians(-18.f), 0.f),
 			vec3(165.f, 330.f, 165.f)),
-		pBox, CLambertain::Create(vWhite));
+		pBox, CLambertain::Create(vec3(0.f, 0.f, 0.7f)));
 
 	vecFieldObjects.push_back(pFieldObject);
 
@@ -331,12 +331,18 @@ void CMain::RenderPixel(const int& iIdxX, const int& iIdxY)
 				ray = m_pCamera->GetRay(u, v);
 				g_vCamDir = ray.GetDirection();
 
-				//CUtility::GetPixelColor(ray, m_vecObjects, vColor);
+				
 				CUtility::GetPixelColor(ray, m_pBVHTree, vColor);
+				vColor = vec3::DeNan(vColor);
 			}
 
 			vColor *= fSample;
 			
+			/*if (vColor.x > 1.f || vColor.y > 1.f || vColor.z > 1.f)
+			{
+				LOGMGR->WriteLog(L"Color : %lf %lf %lf", vColor.x, vColor.y, vColor.z);
+			}*/
+
 			iScreenBufferIdx = (x + y * g_iScreenX) * 4;
 
 			m_pScreenBuffers[iScreenBufferIdx] = int(fmin(sqrtf(vColor.z), 1.f) * 255.f);

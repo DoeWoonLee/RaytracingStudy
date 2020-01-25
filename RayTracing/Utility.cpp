@@ -3,7 +3,7 @@
 #include <float.h>
 #include "BVHTree.h"
 
-int g_MaxDepth = 25;
+int g_MaxDepth = 50;
 
 void CUtility::GetSkyColor(float& y, vec3& vOut)
 {
@@ -111,8 +111,8 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 
 			if (pHitedObject->Scatter(hRec, Ray, outRay, vNewColor, fPdf))
 			{
-				vNewColor = vec3::DeNan(vNewColor);
-				vColor *= vNewColor + vEmittedLight;
+				vNewColor = vNewColor + vEmittedLight;
+				vColor *= vNewColor;
 				Ray = outRay;
 
 			}
@@ -127,5 +127,4 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 	//vColor /= (float)iDepth;
 	vOutColor += vColor;
 
-	//LOGMGR->WriteLog(L"%lf", vOutColor.x);
 }

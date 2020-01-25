@@ -37,10 +37,10 @@ vec3 CMathUtility::RandCosineDirection(void)
 {
 	float r1 = frand0to1();
 	float r2 = frand0to1();
-	float z = sqrt(1 - r2);
-	float phi = 2 * XM_PI*r1;
-	float x = cos(phi)*sqrt(r2);
-	float y = sin(phi)*sqrt(r2);
+	float z = sqrtf(1.f - r2);
+	float phi = 2.f * XM_PI*r1;
+	float x = cosf(phi) * 2.0f * sqrtf(r2);
+	float y = sinf(phi) * 2.0f * sqrtf(r2);
 	return vec3(x, y, z);
 }
 

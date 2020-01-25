@@ -42,30 +42,25 @@ void EmittedObjectsMgr::GenerateScatterRay(CRay & vOutRay,
 	vec3 vEmitObjectLocal = pTransform->InversePos(vHitPos);
 
 	bool bType;
-	// Local 영역
+	
 	vec3 vEmitObjectWorldDir = mixturePdf.Generate(vHitPos, pTransform, bType);
 
+	// Local 영역
 	vec3 vEmitObjectLocalDir = vEmitObjectWorldDir;
 	
-	if (true == bType)
-	{
-		vEmitObjectLocalDir = pTransform->InverseNormal(vEmitObjectLocalDir);
-		//vEmitObjectLocalDir.Normalize();
 
-		fPdfValue = mixturePdf.Value(vEmitObjectLocal,
-			pTransform->GetScale(),
-			vEmitObjectLocalDir,
-			vEmitObjectWorldDir);
+	vEmitObjectLocalDir = pTransform->InverseNormal(vEmitObjectLocalDir);
 
-		pTransform->WorldNormal(vEmitObjectLocalDir);
-	}
-	else
-	{
-		fPdfValue = mixturePdf.Value(vEmitObjectLocal,
-			pTransform->GetScale(),
-			vEmitObjectWorldDir,
-			vEmitObjectWorldDir);
-	}
+		
+	vEmitObjectLocalDir.Normalize();
+
+	fPdfValue = mixturePdf.Value(vEmitObjectLocal,
+		pTransform->GetScale(),
+		vEmitObjectLocalDir,
+		vEmitObjectWorldDir);
+
+	pTransform->WorldNormal(vEmitObjectLocalDir);
+
 
 	CRay scatterRay(vHitPos, vEmitObjectLocalDir);
 	vOutRay = scatterRay;

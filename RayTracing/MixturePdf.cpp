@@ -21,15 +21,15 @@ float MixturePdf::Value(const vec3& vHitPos,
 vec3 MixturePdf::Generate(const vec3 & vWorldPos, const CTransform* pTransform, bool& bType) const
 {
 
-	/*if (CMathUtility::frand0to1() < 0.5f)
+	if (CMathUtility::frand0to1() < 0.5f)
 	{
 		bType = true;
 		return m_p0->GenerateRandDirinRes(vWorldPos, pTransform);
 	}
 	else
-	{*/
+	{
 		bType = false;
 		return m_p1->Generate();
-	//}
+	}
 		
 }

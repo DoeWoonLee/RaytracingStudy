@@ -121,12 +121,27 @@ bool CFieldObject::Scatter(HitRecord & hRec,
 		}
 		else
 		{
+			fPdf = 0.f;
 			EMITTEDOBJECTMGR->GenerateScatterRay(outRay, fPdf, hRec.vPos, sRec);
 
 
 			SAFE_DELETE(sRec.pPdfPtr);
 			fScatteringPdf = m_pMaterial->ScatteringPdf(hRec, inRay, outRay);
-			vColor = sRec.vAttenuation / fPdf * fScatteringPdf;
+			if (fPdf > 0.00001f)
+			{
+				vColor = sRec.vAttenuation / fPdf * fScatteringPdf;
+
+				//if (vColor.x > 1.f)
+				//{
+				//	LOGMGR->WriteLog(L"Pdf : %lf ScatteringPdf : %lf Color.x : %lf", fPdf, fScatteringPdf, vColor.x);
+				//}
+			}
+			else
+			{
+				vColor = vec3(0.f, 0.f, 0.f);
+			}
+			
+
 		
 		}
 		

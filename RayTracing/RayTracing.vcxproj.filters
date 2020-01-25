@@ -136,6 +136,21 @@
     <Filter Include="BaseClass">
       <UniqueIdentifier>{9a93cffb-778b-45c8-90e7-66cdd0150fba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0x03 Utility\0x02 MathUtility\OrthoNormalBase">
+      <UniqueIdentifier>{58c1ee7d-1cd6-49e0-af97-e9bc945ac136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x02 MathUtility\Pdf">
+      <UniqueIdentifier>{bb881f31-e62e-4f6e-9761-ea83b55193d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x02 MathUtility\Pdf\CosinePdf">
+      <UniqueIdentifier>{626550e7-c23b-4b8d-8595-4d2a8326a462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x04 EmittedObjects">
+      <UniqueIdentifier>{76fef29c-5553-4923-ad36-cac4f3cceadc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x03 Utility\0x02 MathUtility\Pdf\MixturePdf">
+      <UniqueIdentifier>{f8dff9a9-d9ef-401b-9d12-e4d24df70887}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -282,6 +297,21 @@
     <ClInclude Include="BaseClass.h">
       <Filter>BaseClass</Filter>
     </ClInclude>
+    <ClInclude Include="OrthoNormalBase.h">
+      <Filter>0x03 Utility\0x02 MathUtility\OrthoNormalBase</Filter>
+    </ClInclude>
+    <ClInclude Include="CosinePdf.h">
+      <Filter>0x03 Utility\0x02 MathUtility\Pdf\CosinePdf</Filter>
+    </ClInclude>
+    <ClInclude Include="Pdf.h">
+      <Filter>0x03 Utility\0x02 MathUtility\Pdf</Filter>
+    </ClInclude>
+    <ClInclude Include="EmittedObjectsMgr.h">
+      <Filter>0x03 Utility\0x04 EmittedObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MixturePdf.h">
+      <Filter>0x03 Utility\0x02 MathUtility\Pdf\MixturePdf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -394,6 +424,18 @@
     </ClCompile>
     <ClCompile Include="BaseClass.cpp">
       <Filter>BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthoNormalBase.cpp">
+      <Filter>0x03 Utility\0x02 MathUtility\OrthoNormalBase</Filter>
+    </ClCompile>
+    <ClCompile Include="CosinePdf.cpp">
+      <Filter>0x03 Utility\0x02 MathUtility\Pdf\CosinePdf</Filter>
+    </ClCompile>
+    <ClCompile Include="EmittedObjectsMgr.cpp">
+      <Filter>0x03 Utility\0x04 EmittedObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MixturePdf.cpp">
+      <Filter>0x03 Utility\0x02 MathUtility\Pdf\MixturePdf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

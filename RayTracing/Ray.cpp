@@ -11,6 +11,11 @@ CRay::CRay(vec3 vOrigin, vec3 vDirection)
 	m_vDirection.Normalize();
 }
 
+CRay::CRay(vec3 vOrigin, vec3 vDirection, bool noInit)
+	: m_vOrigin(vOrigin), m_vDirection(vDirection)
+{
+}
+
 const vec3 & CRay::GetOrigin() const
 {
 	return m_vOrigin;
@@ -41,22 +46,22 @@ XMVECTOR CRay::GetSDirection(void) const
 	return XMLoadFloat3(&m_vDirection);
 }
 
-void CRay::SetOrigin(XMVECTOR & sOrigin)
+void CRay::SetOrigin(const XMVECTOR & sOrigin)
 {
 	m_vOrigin.LoadSIMD(sOrigin);
 }
 
-void CRay::SetOrigin(vec3 & vOrigin)
+void CRay::SetOrigin(const vec3 & vOrigin)
 {
 	m_vOrigin = vOrigin;
 }
 
-void CRay::SetDirection(XMVECTOR & sDirection)
+void CRay::SetDirection(const XMVECTOR & sDirection)
 {
 	m_vDirection.LoadSIMD(sDirection);
 }
 
-void CRay::SetDirection(vec3 & vDirection)
+void CRay::SetDirection(const vec3 & vDirection)
 {
 	m_vDirection = vDirection;
 }

@@ -7,6 +7,8 @@
 #include "Utility.h"
 #include "AABB.h"
 #include "LogMgr.h"
+#include "CosinePdf.h"
+#include "EmittedObjectsMgr.h"
 
 CFieldObject::CFieldObject(void)
 {
@@ -15,12 +17,12 @@ CFieldObject::CFieldObject(void)
 	m_pResource =  CMemoryPool::New<CSphere>(CMemoryPool::OBJECT);
 	// Lambertain
 	m_pMaterial = CMemoryPool::New<CLambertain>(CMemoryPool::OBJECT);
+	m_pMaterial->SetOwner(this);
 	// Origin Coordinate
 	m_pTransform = CMemoryPool::New<CTransform>(CMemoryPool::OBJECT);
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
-
 CFieldObject::CFieldObject(const vec3 & vPos)
 {
 	// Default Create
@@ -28,12 +30,12 @@ CFieldObject::CFieldObject(const vec3 & vPos)
 	m_pResource = CMemoryPool::New<CSphere>(CMemoryPool::OBJECT);
 	// Lambertain
 	m_pMaterial = CMemoryPool::New<CLambertain>(CMemoryPool::OBJECT);
+	m_pMaterial->SetOwner(this);
 	// Origin Coordinate
 	m_pTransform = CMemoryPool::New<CTransform>(CMemoryPool::OBJECT, vPos);
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
-
 CFieldObject::CFieldObject(CTransform * pTransform):
 	m_pTransform(pTransform)
 {
@@ -41,17 +43,17 @@ CFieldObject::CFieldObject(CTransform * pTransform):
 	m_pResource = CMemoryPool::New<CSphere>(CMemoryPool::OBJECT);
 	// Lambertain
 	m_pMaterial = CMemoryPool::New<CLambertain>(CMemoryPool::OBJECT);
-
+	m_pMaterial->SetOwner(this);
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 }
-
 CFieldObject::CFieldObject(const std::wstring & Name, CTransform * pTransform, CResources * pResource, CMaterial * pMaterial) :
 	m_Name(Name), m_pTransform(pTransform), m_pResource(pResource), m_pMaterial(pMaterial)
 {
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 	m_pResource->AddRef();
+	m_pMaterial->SetOwner(this);
 }
 CFieldObject::CFieldObject(CTransform * pTransform, CResources * pResource, CMaterial * pMaterial) :
 	m_pTransform(pTransform), m_pResource(pResource), m_pMaterial(pMaterial)
@@ -59,6 +61,7 @@ CFieldObject::CFieldObject(CTransform * pTransform, CResources * pResource, CMat
 	// AABB
 	m_pAABB = CAABB::Create(m_pResource, m_pTransform);
 	m_pResource->AddRef();
+	m_pMaterial->SetOwner(this);
 }
 
 CFieldObject::~CFieldObject(void)
@@ -87,6 +90,7 @@ bool CFieldObject::Hit(HitRecord& Record, const CRay & inRay,float & fMin, float
 		{
 			fMax = Record.fTime;
 			Record.vPos = inRay.PointAtParameter(fMax);
+			Record.localRay = InverseRay;
 
 			return true;
 		}
@@ -95,23 +99,44 @@ bool CFieldObject::Hit(HitRecord& Record, const CRay & inRay,float & fMin, float
 	return false;
 }
 
-bool CFieldObject::Scatter(HitRecord & Record, const CRay & inRay, CRay & outRay, vec3 & vColor, float& fPdf) const
+bool CFieldObject::Scatter(HitRecord & hRec,
+	const CRay & inRay,
+	CRay & outRay,
+	vec3 & vColor, 
+	float& fPdf) const
 {
-	m_pTransform->WorldNormal(Record.vNormal);
+	ScatterRecord sRec;
+	float fScatteringPdf;
+	// 월드로 변환
+	m_pTransform->WorldNormal(hRec.vNormal);
+	hRec.vNormal.Normalize();
+	hRec.vPos = inRay.PointAtParameter(hRec.fTime);
 
-	Record.vPos = inRay.PointAtParameter(Record.fTime);
-
-	bool bReturn = m_pMaterial->Scatter(Record, inRay, outRay, vColor, fPdf);
-	if (bReturn)
+	bool bCollision = m_pMaterial->Scatter(hRec, inRay, sRec);
+	if (bCollision)
 	{
-		vColor = vColor / fPdf * m_pMaterial->ScatteringPdf(inRay, outRay, Record);
+		if (sRec.bIsSpecular)
+		{
+			vColor = sRec.vAttenuation;
+		}
+		else
+		{
+			EMITTEDOBJECTMGR->GenerateScatterRay(outRay, fPdf, hRec.vPos, sRec);
+
+
+			SAFE_DELETE(sRec.pPdfPtr);
+			fScatteringPdf = m_pMaterial->ScatteringPdf(hRec, inRay, outRay);
+			vColor = sRec.vAttenuation / fPdf * fScatteringPdf;
+		
+		}
+		
 	}
-	return bReturn;
+	return bCollision;
 }
 
-vec3 CFieldObject::Emitted(const vec3 & vPos)
+vec3 CFieldObject::Emitted(const CRay& inRay, const HitRecord& hitRecord)
 {
-	return m_pMaterial->Emitted(vPos);
+	return m_pMaterial->Emitted(inRay, hitRecord);
 }
 
 const CAABB * CFieldObject::GetAABB(void)
@@ -122,5 +147,15 @@ const CAABB * CFieldObject::GetAABB(void)
 const std::wstring & CFieldObject::GetName(void)
 {
 	return m_Name;
+}
+
+const CTransform * CFieldObject::GetTransform(void)
+{
+	return m_pTransform;
+}
+
+const CResources * CFieldObject::GetResource(void)
+{
+	return m_pResource;
 }
 

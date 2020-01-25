@@ -3,6 +3,8 @@
 #include "MathUtility.h"
 #include "Public.h"
 #include "ConstantTexture.h"
+#include "OrthoNormalBase.h"
+#include "CosinePdf.h"
 
 CLambertain::CLambertain(void) :
 	m_pAlbedo(new ConstantTexture(vec3(0.5f, 0.5f, 0.5f)))
@@ -26,28 +28,18 @@ CLambertain::~CLambertain(void)
 	SAFE_RELEASE(m_pAlbedo);
 }
 
-bool CLambertain::Scatter(HitRecord & Record, const CRay& InRay, CRay & OutRay, vec3 & vColor, float& fPdf) const
+bool CLambertain::Scatter(const HitRecord & hRec, const CRay& InRay, ScatterRecord& sRec) const
 {
-	vColor = m_pAlbedo->Value(0.f,0.f, Record.vPos);
-
-	/*vec3 vDirection;
-	do {
-		vDirection = CMathUtility::RandUnitSphereVector();
-	} while (vec3::Dot(vDirection, Record.vNormal) < 0.f);*/
-
-	OutRay.SetDirection(XMVector3Normalize( Record.vNormal.ToSIMD() + CMathUtility::RandUnitSphereVector().ToSIMD() ));
-	//OutRay.SetDirection(vDirection);
-
-	OutRay.SetOrigin(Record.vPos);
-	fPdf = vec3::Dot(Record.vNormal, OutRay.GetDirection()) / XM_PI;
-	//fPdf = 0.5f / XM_PI;
+	sRec.bIsSpecular = false;
+	sRec.vAttenuation = m_pAlbedo->Value(hRec.vUV.x, hRec.vUV.y, hRec.vPos);
+	sRec.pPdfPtr = new CosinePdf(hRec.vNormal);
 
 	return true;
 }
 
-float CLambertain::ScatteringPdf(const CRay & inRay, const CRay & outRay, const HitRecord & hitRecord)
+float CLambertain::ScatteringPdf(const HitRecord & hRec, const CRay & inRay, const CRay & outRay) const
 {
-	float fCosine = vec3::Dot(hitRecord.vNormal, outRay.GetDirection());
+	float fCosine = vec3::Dot(hRec.vNormal, outRay.GetDirection());
 	if (fCosine < 0.f)
 		return 0.f;
 	return fCosine / XM_PI;

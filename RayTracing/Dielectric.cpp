@@ -12,6 +12,8 @@ CDielectric::CDielectric(vec3 & vAlbedo, float & fRefIdx) :
 {
 }
 
+
+
 float Schlick(const float& fCosine,const float& fRefIdx)
 {
 	// 프레넬 효과를 구할때 사용하는 근사 함수
@@ -23,9 +25,9 @@ float Schlick(const float& fCosine,const float& fRefIdx)
 	r0 = r0 * r0;
 	return r0 + (1.f - r0) * powf(1.f - fCosine, 5);
 }
-bool CDielectric::Scatter(HitRecord & Record, const CRay & InRay, CRay & OutRay, vec3 & vColor, float& fPdf)const
+bool CDielectric::Scatter(const HitRecord& hRec, const CRay& InRay, ScatterRecord& sRec)const
 {
-	vec3 vOutwardNormal;
+	/*vec3 vOutwardNormal;
 	vec3 vScattered;
 	float fNiOverNt = 0.f;
 	float fCosine = vec3::Dot(InRay.GetDirection(), Record.vNormal);
@@ -70,7 +72,7 @@ bool CDielectric::Scatter(HitRecord & Record, const CRay & InRay, CRay & OutRay,
 	}
 	OutRay.SetOrigin(Record.vPos);
 	vColor = m_vAlbedo;
-
+	*/
 	return true;
 }
 

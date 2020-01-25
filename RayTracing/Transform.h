@@ -18,8 +18,12 @@ public:
 public:
 	DECLARE_CREATE_BY_MEMORYPOOL(CTransform, CMemoryPool::OBJECT)
 
+	const vec3& GetScale(void) const;
 
 	void InverseRay(const CRay& WorldRay, CRay& InverseRay) const;
+	vec3 InversePos(const vec3& vPos) const;
+	vec3 InverseNormal(const vec3& vPos)const;
+
 	void WorldRay(CRay& WorldRay, const CRay& InverseRay) const;
 	void WorldNormal(vec3& vNormal) const;
 	void WorldPos(vec3& vPos) const;

@@ -13,14 +13,14 @@ void tagVector3::Normalize(void)
 	XMStoreFloat3(this, Vector);
 }
 
-float tagVector3::Length(const tagVector3 & vVector)
+float tagVector3::Length(const tagVector3 & vVector) const
 {
 	XMVECTOR vLength = XMVector3Length(ToSIMD() - vVector.ToSIMD());
 
 	return vLength.m128_f32[0];
 }
 
-float tagVector3::Length(void)
+float tagVector3::Length(void) const
 {
 	
 	XMVECTOR vLength = XMVector3Length(ToSIMD());
@@ -28,7 +28,7 @@ float tagVector3::Length(void)
 	return vLength.m128_f32[0];
 }
 
-float tagVector3::LengthSquared(void)
+float tagVector3::LengthSquared(void)  const
 {
 	XMVECTOR vLengthSq = XMVector3LengthSq(ToSIMD());
 
@@ -59,6 +59,16 @@ tagVector3 tagVector3::Cross(const tagVector3 & v1, const tagVector3 & v2)
 {
 
 	return tagVector3(XMVector3Cross(v1.ToSIMD(), v2.ToSIMD()));
+}
+
+tagVector3 tagVector3::DeNan(const tagVector3 & v)
+{
+	tagVector3 temp = v;
+	if (!(temp.x == temp.x)) temp.x = 0.f;
+	if (!(temp.y == temp.y)) temp.y = 0.f;
+	if (!(temp.z == temp.z)) temp.z = 0.f;
+
+	return temp;
 }
 
 XMVECTOR tagVector3::ToSIMD(void) const

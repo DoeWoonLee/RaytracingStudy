@@ -290,6 +290,8 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantMedium.h" />
     <ClInclude Include="ConstantTexture.h" />
+    <ClInclude Include="CosinePdf.h" />
+    <ClInclude Include="EmittedObjectsMgr.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Dielectric.h" />
     <ClInclude Include="DiffuseLight.h" />
@@ -308,6 +310,9 @@
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Metal.h" />
+    <ClInclude Include="MixturePdf.h" />
+    <ClInclude Include="OrthoNormalBase.h" />
+    <ClInclude Include="Pdf.h" />
     <ClInclude Include="Public.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RayTracing.h" />
@@ -339,8 +344,10 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantMedium.cpp" />
     <ClCompile Include="ConstantTexture.cpp" />
+    <ClCompile Include="CosinePdf.cpp" />
     <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="DiffuseLight.cpp" />
+    <ClCompile Include="EmittedObjectsMgr.cpp" />
     <ClCompile Include="FBXLoader.cpp" />
     <ClCompile Include="FieldObject.cpp" />
     <ClCompile Include="Isotropic.cpp" />
@@ -354,6 +361,8 @@
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Metal.cpp" />
+    <ClCompile Include="MixturePdf.cpp" />
+    <ClCompile Include="OrthoNormalBase.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RayTracing.cpp" />
     <ClCompile Include="RectangleXY.cpp" />

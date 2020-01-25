@@ -8,6 +8,7 @@ class CRay
 public:
 	explicit CRay();
 	explicit CRay(vec3 vOrigin, vec3 vDirection);
+	explicit CRay(vec3 vOrigin, vec3 vDirection, bool noInit);
 public:
 	const vec3& GetOrigin() const;
 	void GetOrigin(XMVECTOR& sOut) const;
@@ -17,10 +18,10 @@ public:
 	void GetDirection(XMVECTOR& sOut) const;
 	XMVECTOR GetSDirection(void) const;
 
-	void SetOrigin(XMVECTOR& sOrigin);
-	void SetOrigin(vec3& vOrigin);
-	void SetDirection(XMVECTOR& sDirection);
-	void SetDirection(vec3& vDirection);
+	void SetOrigin(const XMVECTOR& sOrigin);
+	void SetOrigin(const vec3& vOrigin);
+	void SetDirection(const XMVECTOR& sDirection);
+	void SetDirection(const vec3& vDirection);
 
 	vec3 PointAtParameter(const float& fTime) const;
 private:

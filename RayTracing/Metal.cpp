@@ -16,22 +16,26 @@ CMetal::CMetal(const vec3 & vAlbedo, const float & fFuzzy):
 	m_vAlbedo(vAlbedo), m_fFuzzy(fFuzzy)
 {
 }
-
-bool CMetal::Scatter(HitRecord & Record, const CRay& InRay, CRay & OutRay, vec3 & vColor, float& fPdf)const
+bool CMetal::Scatter(const HitRecord& hRec, const CRay& InRay, ScatterRecord& sRec)const
 {
 	float fDiscriminant = 0.f;
 
-	vec3 vOutDir = CMathUtility::Reflect(InRay.GetDirection(), Record.vNormal, fDiscriminant);
+	vec3 vOutDir = CMathUtility::Reflect(InRay.GetDirection(), hRec.vNormal, fDiscriminant);
 
 	if (m_fFuzzy > 0.f)
 	{
 		vOutDir += CMathUtility::RandUnitSphereVector() * m_fFuzzy;
 	}
 
+	
+	sRec.specularRay.SetOrigin(hRec.vPos);
+	sRec.specularRay.SetDirection(vOutDir);
+	sRec.vAttenuation = m_vAlbedo;
+	sRec.bIsSpecular = true;
+	sRec.pPdfPtr = nullptr;
 
-	OutRay.SetOrigin(Record.vPos);
-	OutRay.SetDirection(vOutDir);
-	vColor = m_vAlbedo;
+	return true;
+	//return (fDiscriminant < 0.f);
 
-	return (fDiscriminant < 0.f);
+
 }

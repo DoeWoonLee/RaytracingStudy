@@ -25,12 +25,30 @@ CTransform::CTransform(const vec3 & vPos, const vec3 & vRotate, const vec3 vScal
 
 thread_local XMMATRIX WorldMatrix;
 thread_local XMMATRIX InverseMatrix;
+const vec3 & CTransform::GetScale(void) const
+{
+	return m_vScale;
+}
 void CTransform::InverseRay(const CRay & WorldRay, CRay & InverseRay) const
 {
 
 	InverseMatrix = m_matInvWorld.ToSIMD();
 	InverseRay.SetOrigin(XMVector3TransformCoord(WorldRay.GetOrigin().ToSIMD(), InverseMatrix));
 	InverseRay.SetDirection(XMVector3TransformNormal(WorldRay.GetDirection().ToSIMD(), InverseMatrix));
+}
+
+vec3 CTransform::InversePos(const vec3 & vPos) const
+{
+	InverseMatrix = m_matInvWorld.ToSIMD();
+	XMVECTOR vInversePos = XMVector3TransformCoord(vPos.ToSIMD(), InverseMatrix);
+	return vec3(vInversePos);
+}
+
+vec3 CTransform::InverseNormal(const vec3 & vPos) const
+{
+	InverseMatrix = m_matInvWorld.ToSIMD();
+	XMVECTOR vInversePos = XMVector3TransformNormal(vPos.ToSIMD(), InverseMatrix);
+	return vec3(vInversePos);
 }
 
 void CTransform::WorldRay(CRay & WorldRay, const CRay & InverseRay) const

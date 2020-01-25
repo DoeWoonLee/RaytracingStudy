@@ -17,11 +17,14 @@ public:
 	~CFieldObject(void);
 	DECLARE_CREATE_BY_MEMORYPOOL(CFieldObject, CMemoryPool::OBJECT)
 
-	bool Hit(HitRecord& Record, const CRay& inRay, float& fMin, float& fMax);
+	bool Hit(HitRecord& hRec, const CRay& inRay, float& fMin, float& fMax);
 	bool Scatter(HitRecord& Record, const CRay& inRay, CRay& outRay, vec3& vColor, float& fPdf) const;
-	vec3 Emitted(const vec3& vPos);
+	vec3 Emitted(const CRay& inRay, const HitRecord& hitRecord);
 	const CAABB* GetAABB(void);
 	const std::wstring& GetName(void);
+
+	const CTransform* GetTransform(void);
+	const CResources* GetResource(void);
 private:
 	CTransform* m_pTransform;
 	CResources* m_pResource;

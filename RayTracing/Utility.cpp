@@ -3,7 +3,7 @@
 #include <float.h>
 #include "BVHTree.h"
 
-int g_MaxDepth = 50;
+int g_MaxDepth = 25;
 
 void CUtility::GetSkyColor(float& y, vec3& vOut)
 {
@@ -16,57 +16,57 @@ void CUtility::GetSkyColor(float& y, vec3& vOut)
 	vOut = vec3(0.f, 0.f, 0.f);
 }
 
-
-void CUtility::GetPixelColor(CRay & Ray, std::vector<CFieldObject*>& vecFieldObject, vec3& vOutColor)
-{
-	CRay outRay;
-	float fMin = 0.0001f;
-	float fMax = FLT_MAX;
-	vec3 vColor = vec3(1.f, 1.f, 1.f);
-	vec3 vNewColor;
-
-	bool bHit = true;
-	int iDepth = 0;
-	size_t iHitIdx = -1;
-
-	HitRecord Record;
-	float fPdf = 0.f;
-
-	for (; iDepth < 10 && true == bHit; ++iDepth)
-	{
-		fMax = FLT_MAX;
-		bHit = false;
-
-		for (size_t i = 0; i < vecFieldObject.size(); ++i)
-		{
-			 //Ãæµ¹ µÆÀ»¶§
-			if (vecFieldObject[i]->Hit(Record, Ray, fMin, fMax))
-			{
-				bHit = true;
-				iHitIdx = i;
-			}
-		}
-		if (false == bHit)
-		{
-			
-			float fRayY = Ray.GetDirection().y;
-
-			GetSkyColor(fRayY, vNewColor);
-			vColor *= vNewColor;
-
-			break;
-		}
-		else
-		{
-			vecFieldObject[iHitIdx]->Scatter(Record, Ray, outRay, vNewColor, fPdf);
-			vColor *= vNewColor;
-			Ray = outRay;
-		}
-	}
-	vColor /= (float)iDepth;
-	vOutColor += vColor;
-
-}
+//
+//void CUtility::GetPixelColor(CRay & Ray, std::vector<CFieldObject*>& vecFieldObject, vec3& vOutColor)
+//{
+//	CRay outRay;
+//	float fMin = 0.0001f;
+//	float fMax = FLT_MAX;
+//	vec3 vColor = vec3(1.f, 1.f, 1.f);
+//	vec3 vNewColor;
+//
+//	bool bHit = true;
+//	int iDepth = 0;
+//	size_t iHitIdx = -1;
+//
+//	HitRecord Record;
+//	float fPdf = 0.f;
+//
+//	for (; iDepth < 10 && true == bHit; ++iDepth)
+//	{
+//		fMax = FLT_MAX;
+//		bHit = false;
+//
+//		for (size_t i = 0; i < vecFieldObject.size(); ++i)
+//		{
+//			 //Ãæµ¹ µÆÀ»¶§
+//			if (vecFieldObject[i]->Hit(Record, Ray, fMin, fMax))
+//			{
+//				bHit = true;
+//				iHitIdx = i;
+//			}
+//		}
+//		if (false == bHit)
+//		{
+//			
+//			float fRayY = Ray.GetDirection().y;
+//
+//			GetSkyColor(fRayY, vNewColor);
+//			vColor *= vNewColor;
+//
+//			break;
+//		}
+//		else
+//		{
+//			vecFieldObject[iHitIdx]->Scatter(Record, Ray, outRay, vNewColor, fPdf);
+//			vColor *= vNewColor;
+//			Ray = outRay;
+//		}
+//	}
+//	vColor /= (float)iDepth;
+//	vOutColor += vColor;
+//
+//}
 
 void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 {
@@ -83,7 +83,8 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 	// Probability Density Function
 	float fPdf = 0.f;
 
-	HitRecord Record;
+	HitRecord hRec;
+
 	CFieldObject* pHitedObject = nullptr;
 
 	for (; iDepth < g_MaxDepth && true == bHit; ++iDepth)
@@ -91,7 +92,7 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 		fMax = FLT_MAX;
 		bHit = false;
 
-		if (pBVHTree->Hit(Ray, fMin, fMax, Record, &pHitedObject))
+		if (pBVHTree->Hit(Ray, fMin, fMax, hRec, &pHitedObject))
 		{
 			bHit = true;
 		}
@@ -106,12 +107,14 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 		}
 		else
 		{
-			vEmittedLight = pHitedObject->Emitted(Record.vPos);
+			vEmittedLight = pHitedObject->Emitted(Ray, hRec);
 
-			if (pHitedObject->Scatter(Record, Ray, outRay, vNewColor, fPdf))
+			if (pHitedObject->Scatter(hRec, Ray, outRay, vNewColor, fPdf))
 			{
+				vNewColor = vec3::DeNan(vNewColor);
 				vColor *= vNewColor + vEmittedLight;
 				Ray = outRay;
+
 			}
 			else
 			{ 
@@ -123,4 +126,6 @@ void CUtility::GetPixelColor(CRay & Ray, CBVHTree * pBVHTree, vec3 & vOutColor)
 	}
 	//vColor /= (float)iDepth;
 	vOutColor += vColor;
+
+	//LOGMGR->WriteLog(L"%lf", vOutColor.x);
 }

@@ -7,12 +7,12 @@ CIsotropic::CIsotropic(const vec3 & vAlbedo):
 {
 }
 
-bool CIsotropic::Scatter(HitRecord & Record, const CRay & InRay, CRay & OutRay, vec3 & vColor, float& fPdf)const
+bool CIsotropic::Scatter(const HitRecord& hRec, const CRay& InRay, ScatterRecord& sRec)const
 {
-	vColor = m_vAlbedo;
+	sRec.vAttenuation = m_vAlbedo;
 
-	OutRay.SetOrigin(Record.vPos);
-	OutRay.SetDirection(CMathUtility::RandUnitSphereVector());
+	sRec.specularRay.SetOrigin(hRec.vPos);
+	sRec.specularRay.SetDirection(CMathUtility::RandUnitSphereVector());
 
 	return true;
 }

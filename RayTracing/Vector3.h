@@ -13,9 +13,9 @@ typedef struct tagVector3 : public XMFLOAT3
 	explicit tagVector3(XMVECTOR vSimd);
 	explicit tagVector3(_In_reads_(3) const float *pArray) : XMFLOAT3(pArray) {}
 	void Normalize(void);
-	float Length(const tagVector3& vVector);
-	float Length(void);
-	float LengthSquared(void);
+	float Length(const tagVector3& vVector) const;
+	float Length(void) const;
+	float LengthSquared(void) const;
 
 	const tagVector3& TransformNormal(XMMATRIX mat);
 	const tagVector3& TransformCoord(XMMATRIX mat);
@@ -23,6 +23,8 @@ typedef struct tagVector3 : public XMFLOAT3
 
 	static float Dot(const tagVector3& v1, const tagVector3& v2);
 	static tagVector3 Cross(const tagVector3& v1, const tagVector3& v2);
+	static tagVector3 DeNan(const tagVector3& v);
+
 	XMVECTOR ToSIMD(void) const;
 	void LoadSIMD(XMVECTOR vSimd);
 

@@ -29,7 +29,7 @@
 
 
 vec3 g_vCamDir;
-int g_iSample = 500;
+int g_iSample = 100;
 
 
 CMain::CMain(HWND hWnd):
@@ -142,7 +142,7 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 	CRectangleXY* pRectangle = CRectangleXY::Create(1.f, 1.f);
 
 	CFieldObject* pFieldObject = nullptr;
-	vec3 vRectangleScale(555.f, 555.f, 1.f);
+	vec3 vRectangleScale(555.f, 555.f, 555.f);
 	vec3 vWhite(0.73f, 0.73f, 0.73f);
 	// Back
 	pFieldObject = CFieldObject::Create(
@@ -186,7 +186,7 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 	// Light
 	pFieldObject = CFieldObject::Create(
 		CTransform::Create(
-			vec3(0.f, 554, 277.5f), vec3(-XM_PI * 0.5f, XM_PI, 0.f), vec3(122.f, 122.f, 122.f)),
+			vec3(0.f, 554.f, 277.5f), vec3(-XM_PI * 0.5f, XM_PI, 0.f), vec3(122.f, 122.f, 122.f)),
 		pRectangle, CDiffuseLight::Create(vec3(15.f, 15.f, 15.f)));
 
 	vecFieldObjects.push_back(pFieldObject);
@@ -208,7 +208,7 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 	
 	pFieldObject = CFieldObject::Create(
 		CTransform::Create(
-			vec3(-70.f, 165.f, 377.5f),
+			vec3(-70.f, 165.f, 407.5f),
 			vec3(0.f, XMConvertToRadians(-18.f), 0.f),
 			vec3(165.f, 330.f, 165.f)),
 		pBox, CLambertain::Create(vWhite));
@@ -218,7 +218,7 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 	
 #ifdef MEMORYPOOLUSE
 	SAFE_RELEASE(pRectangle);
-	SAFE_RELEASE(pBox);
+	//SAFE_RELEASE(pBox);
 #endif
 
 }
@@ -262,9 +262,7 @@ bool CMain::RenderCall(void)
 	{
 		return false;
 	}
-
-	int iCoreCnt = std::thread::hardware_concurrency();
-
+	
 	for (int i = 0; i < g_iScreenX / 50; ++i)
 	{
 		for (int j = 0; j < g_iScreenY / 50; ++j)

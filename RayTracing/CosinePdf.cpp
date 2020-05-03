@@ -13,7 +13,7 @@ float CosinePdf::Value(const vec3 & vDirection) const
 	if (fCosine < 0.f)
 		return 0.f;
 	else
-		return fCosine / XM_PI * 4.f;
+		return fCosine / XM_PI;
 }
 
 vec3 CosinePdf::Generate() const

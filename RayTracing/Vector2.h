@@ -8,11 +8,14 @@ public:
 	float x;
 	float y;
 
-	vec2 operator +(vec2& v)
+	vec2 operator +(const vec2& v) const
 	{
 		return vec2(this->x + v.x, this->y + v.y);
 	}
-
+	vec2 operator -(const vec2& v) const
+	{
+		return vec2(this->x - v.x, this->y - v.y);
+	}
 };
 inline vec2	operator * (vec2& v, const float& fValue)
 {

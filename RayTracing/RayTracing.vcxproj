@@ -292,6 +292,7 @@
     <ClInclude Include="ConstantTexture.h" />
     <ClInclude Include="CosinePdf.h" />
     <ClInclude Include="EmittedObjectsMgr.h" />
+    <ClInclude Include="ImageTexture.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Dielectric.h" />
     <ClInclude Include="DiffuseLight.h" />
@@ -350,6 +351,7 @@
     <ClCompile Include="EmittedObjectsMgr.cpp" />
     <ClCompile Include="FBXLoader.cpp" />
     <ClCompile Include="FieldObject.cpp" />
+    <ClCompile Include="ImageTexture.cpp" />
     <ClCompile Include="Isotropic.cpp" />
     <ClCompile Include="KDTree.cpp" />
     <ClCompile Include="Lambertain.cpp" />

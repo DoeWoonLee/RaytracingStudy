@@ -15,7 +15,7 @@ void OrthoNormalBase::BuildFromW(const vec3 &vNormal)
 	vec3 a;
 	if (fabs(w().x) > 0.9f)
 	{
-		a = vec3(0.f, 1.f, 0.f);
+		a = vec3(0.f, 0.f, 1.f);
 	}
 	else
 	{

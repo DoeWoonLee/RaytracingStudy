@@ -91,9 +91,6 @@
     <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\KDTree">
       <UniqueIdentifier>{d10498ab-713d-4acf-8ed1-18ccf97c60cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="0x02 FieldObject\0x00 Component\0x02 Material\Texture">
-      <UniqueIdentifier>{b9312f4b-5673-4d80-92df-2fb8651366a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="0x02 FieldObject\0x00 Component\0x01 Resource\0x99 Mesh">
       <UniqueIdentifier>{28494dd0-ff28-4565-9c82-58537c6fa495}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,9 @@
     </Filter>
     <Filter Include="0x03 Utility\0x02 MathUtility\Pdf\MixturePdf">
       <UniqueIdentifier>{f8dff9a9-d9ef-401b-9d12-e4d24df70887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0x02 FieldObject\0x00 Component\0x04 Texture\ImageTexture">
+      <UniqueIdentifier>{aee06b0c-2d74-41b5-92fd-658255811fc7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +312,9 @@
     <ClInclude Include="MixturePdf.h">
       <Filter>0x03 Utility\0x02 MathUtility\Pdf\MixturePdf</Filter>
     </ClInclude>
+    <ClInclude Include="ImageTexture.h">
+      <Filter>0x02 FieldObject\0x00 Component\0x04 Texture\ImageTexture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -436,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="MixturePdf.cpp">
       <Filter>0x03 Utility\0x02 MathUtility\Pdf\MixturePdf</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageTexture.cpp">
+      <Filter>0x02 FieldObject\0x00 Component\0x04 Texture\ImageTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

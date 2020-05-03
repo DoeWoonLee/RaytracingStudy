@@ -36,8 +36,13 @@ bool CRectangleXY::Hit(const CRay & inRay, float & fMin, float & fMax, HitRecord
 
 	hitRecord.fTime = t;
 	hitRecord.vNormal = vec3(0.f, 0.f, 1.f);
+	hitRecord.vBiNormal = vec3(1.0f, 0.f, 0.f);
+	hitRecord.vTangent = vec3(0.0f, 1.f, 0.f);
+
 	hitRecord.vPos = vPos;
 
+	hitRecord.vUV.x = vPos.x + 0.5f;
+	hitRecord.vUV.y = vPos.y + 0.5f;
 
 	return true;
 }

@@ -27,9 +27,11 @@
 #include "LogMgr.h"
 #include "RectangleXY.h"
 
+#include "ImageTexture.h"
+
 
 vec3 g_vCamDir;
-int g_iSample = 500;
+int g_iSample = 100;
 
 
 CMain::CMain(HWND hWnd):
@@ -125,11 +127,268 @@ void MakeSongPyeongMap(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldO
 }
 void TestScene(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects)
 {
-	*ppCamera = CMemoryPool::New<CCamera>(CMemoryPool::OBJECT, vec3(10.f, 5.f, -18.f), vec3(0.f, 0.f, -1.f), vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 20.f);
+	*ppCamera = CMemoryPool::New<CCamera>(CMemoryPool::OBJECT,
+		vec3(0.f, 377.5f, -500.f),
+		vec3(0.f, 207.5f, 0.f),
+		vec3(0.f, 1.f, 0.f), g_iScreenX / (float)g_iScreenY, 40.f);
 
-	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(0.f, 3.f, 0.f), vec3(), vec3(3.f, 3.f, 3.f)), CConstantMedium::Create(CSphere::Create(vec3(), 1.f), 0.01f), CIsotropic::Create(vec3(1.f, 0.f, 0.f)) ));
+	
+	// Image Load
+	ImageTexture* pTableImage = new ImageTexture("../Scene/Table.jpg", vec2(1.f, 1.f));
+	ImageTexture* pBoardImage = new ImageTexture("../Scene/BoardImage.jpg", vec2(1.f, 1.f));
+	ImageTexture* pWallImage = new ImageTexture("../Scene/8_D.TGA", "../Scene/8_N.TGA", vec2(1.f, 1.f));
+	// Mesh Setting
+	CMesh* pMouse1 = CMesh::Create(std::string("../Scene/Mouse1.FBX"));
+	CMesh* pMouse2 = CMesh::Create(std::string("../Scene/Mouse2.FBX"));
+	CMesh* pMouse3 = CMesh::Create(std::string("../Scene/Mouse3.FBX"));
+	CMesh* pMouse4 = CMesh::Create(std::string("../Scene/Mouse4.FBX"));
+	CFieldObject* pFieldObject = nullptr;
 
-	vecFieldObjects.push_back(CFieldObject::Create(CTransform::Create(vec3(0.f, -501.f, 0.f), vec3(0.f, 0.f, 0.f), vec3(500.f, 500.f, 500.f))));
+
+	// Mouse1
+	{
+		vec3 vMouseScale(4.f, 4.f, 4.f);
+		vec3 vMousePosition(-130.f - cosf(XMConvertToRadians(265.f)) * 130.f, 80.f, 277.f + sinf(XMConvertToRadians(265.f)) * 130.f);
+		vec3 vMouseRotate(-XMConvertToRadians(25.f), XMConvertToRadians(265.f), 0.f);
+		vec3 vColor(0.73f, 0.73f, 0.73f);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse1, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse1, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse2, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse3, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse4, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+	}
+
+	// Mouse2
+	{
+		vec3 vMouseScale(4.f, 4.f, 4.f);
+		vec3 vMousePosition(130.f - cosf(XMConvertToRadians(40.f)) * 130.f, 80.f, 277.f + sinf(XMConvertToRadians(40.f)) * 130.f);
+		vec3 vMouseRotate(-XMConvertToRadians(25.f), XMConvertToRadians(50.f), 0.f);
+		vec3 vColor(0.25f, 0.25f, 0.25f);
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse1, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse1, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse2, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse3, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse4, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+	}
+
+	// Mouse3
+	{
+		vec3 vMouseScale(4.f, 4.f, 4.f);
+		vec3 vMousePosition(130.f + cosf(XMConvertToRadians(100.f)) * 130.f, 80.f, 277.f - sinf(XMConvertToRadians(100.f)) * 130.f);
+		vec3 vMouseRotate(-XMConvertToRadians(25.f), XMConvertToRadians(100.f), 0.f);
+		vec3 vColor(0.5f, 0.5f, 0.5f);
+
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse1, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse1, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse2, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse3, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pMouse4, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+	}
+
+	// Table
+	{
+		CMesh* pTable = CMesh::Create(std::string("../Scene/Table.FBX"));
+
+		vec3 vMouseScale(0.2f, 0.2f, 0.2f);
+		vec3 vMousePosition(0.f, 137.f, 207.f);
+		vec3 vMouseRotate(-XMConvertToRadians(90.f), 0.f, 0.f);
+		vec3 vColor(0.5f, 0.5f, 0.5f);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pTable, CLambertain::Create(pTableImage));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		SAFE_RELEASE(pTable);
+	}
+
+	// Stick
+	{
+		CMesh* pStick = CMesh::Create(std::string("../Scene/Stick.FBX"));
+
+		vec3 vMouseScale(1.5f, 1.5f, 1.5f);
+		vec3 vMousePosition(0.f, 277.f, 247.f);
+		vec3 vMouseRotate(-XMConvertToRadians(30.f), 0.f, 0.f);
+		vec3 vColor(193.f /255.f, 138.f / 255.f,49.f / 255.f);
+
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pStick, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		vMousePosition = vec3(-15.f, 247.f, 257.f);
+		vMouseRotate = vec3(-XMConvertToRadians(70.f), XMConvertToRadians(60.f), 0.f);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pStick, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		vMousePosition = vec3(10.f, 217.f, 237.f);
+		vMouseRotate = vec3(-XMConvertToRadians(10.f), XMConvertToRadians(90.f), 0.f);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pStick, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		vMousePosition = vec3(4.f, 187.f, 210.f);
+		vMouseRotate = vec3(-XMConvertToRadians(60.f), XMConvertToRadians(140.f), 0.f);
+
+		pFieldObject = CFieldObject::Create(
+			CTransform::Create(vMousePosition, vMouseRotate, vMouseScale),
+			pStick, CLambertain::Create(vColor));
+
+		vecFieldObjects.push_back(pFieldObject);
+
+		SAFE_RELEASE(pStick);
+	}
+	// Map
+	CRectangleXY* pRectangle = CRectangleXY::Create(1.f, 1.f);
+
+	vec3 vWhite(0.73f, 0.73f, 0.73f);
+	vec3 vRectangleScale(555.f, 555.f, 555.f);
+
+	// ภทฦว
+	pFieldObject = CFieldObject::Create(
+		CTransform::Create(
+			vec3(-10.f, 140.f, 197.5f), vec3(-XM_PI * 0.5f, XM_PI, 0.f), vec3(140.f, 140.f, 140.f)),
+		pRectangle, CLambertain::Create(pBoardImage));
+
+	vecFieldObjects.push_back(pFieldObject);
+
+	// Back
+	pFieldObject = CFieldObject::Create(
+		CTransform::Create(
+			vec3(0.f, 277.5f, 555.f), vec3(0.f, XM_PI, 0.f), vRectangleScale),
+		pRectangle, CLambertain::Create(pWallImage));
+
+	vecFieldObjects.push_back(pFieldObject);
+
+	// Bottom
+	pFieldObject = CFieldObject::Create(
+		CTransform::Create(
+			vec3(0.f, 0.f, 277.5f), vec3(-XM_PI * 0.5f, XM_PI, 0.f), vRectangleScale),
+		pRectangle, CLambertain::Create(vWhite));
+
+	vecFieldObjects.push_back(pFieldObject);
+
+	// Top
+	pFieldObject = CFieldObject::Create(
+		CTransform::Create(
+			vec3(0.f, 555.f, 277.5f), vec3(XM_PI * 0.5f, XM_PI, 0.f), vRectangleScale),
+		pRectangle, CLambertain::Create(vWhite));
+
+	vecFieldObjects.push_back(pFieldObject);
+
+	// Right
+	pFieldObject = CFieldObject::Create(
+		CTransform::Create(
+			vec3(277.5f, 277.5, 277.5f), vec3(0.f, -XM_PI * 0.5f, 0.f), vRectangleScale),
+		pRectangle, CLambertain::Create(pWallImage));
+
+	vecFieldObjects.push_back(pFieldObject);
+	// Left
+	pFieldObject = CFieldObject::Create(
+		CTransform::Create(
+			vec3(-277.5f, 277.5, 277.5f), vec3(0.f, XM_PI * 0.5f, 0.f), vRectangleScale),
+		pRectangle, CLambertain::Create(pWallImage));
+
+	vecFieldObjects.push_back(pFieldObject);
+
+	// Light
+	pFieldObject = CFieldObject::Create(
+		CTransform::Create(
+			vec3(2.f, 554.f, 277.5f), vec3(-XM_PI * 0.5f, XM_PI, 0.f), vec3(122.f, 122.f, 122.f)),
+		pRectangle, CDiffuseLight::Create(vec3(15.f, 15.f, 15.f)));
+
+	vecFieldObjects.push_back(pFieldObject);
+
+
+#ifdef MEMORYPOOLUSE
+	SAFE_RELEASE(pWallImage);
+	SAFE_RELEASE(pTableImage);
+	//SAFE_RELEASE(pEagle);
+#endif
 }
 void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects)
 {
@@ -137,6 +396,12 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 		vec3(0.f, 277.5f, -800.f), 
 		vec3(0.f, 277.5f, 0.f),
 		vec3(0.f, 1.f, 0.f) , g_iScreenX / (float)g_iScreenY, 40.f);
+
+
+	// Image Load
+	ImageTexture* pTestImage = new ImageTexture("../Scene/8_D.TGA", "../Scene/8_N.TGA",vec2(1.f, 1.f));
+	// Mesh Setting
+	//CMesh* pEagle = CMesh::Create(std::string("../Scene/Eagle.fbx"));
 
 
 	CRectangleXY* pRectangle = CRectangleXY::Create(1.f, 1.f);
@@ -148,7 +413,7 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 	pFieldObject = CFieldObject::Create(
 		CTransform::Create(
 		vec3(0.f, 277.5f, 555.f), vec3(0.f , XM_PI, 0.f), vRectangleScale),
-		pRectangle,	CLambertain::Create(vWhite));
+		pRectangle,	CLambertain::Create(pTestImage));
 
 	vecFieldObjects.push_back(pFieldObject);
 
@@ -195,14 +460,14 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 
 
 	// Rhight Short Box
-	/*pFieldObject = CFieldObject::Create(
+	pFieldObject = CFieldObject::Create(
 		CTransform::Create(
 			vec3(65.f, 87.5f, 147.5f),
 			vec3(0.f, XMConvertToRadians(15.f), 0.f),
 			vec3(165.f, 165.f, 165.f)),
 		pBox, CLambertain::Create(vWhite));
 
-	vecFieldObjects.push_back(pFieldObject);*/
+	vecFieldObjects.push_back(pFieldObject);
 
 	// Left Tall Box
 	
@@ -211,17 +476,20 @@ void ConrnellBox(CCamera** ppCamera, std::vector<CFieldObject*>& vecFieldObjects
 			vec3(-70.f, 165.f, 407.5f),
 			vec3(0.f, XMConvertToRadians(-18.f), 0.f),
 			vec3(165.f, 330.f, 165.f)),
-		pBox, CLambertain::Create(vec3(0.f, 0.f, 0.7f)));
+		pBox, CLambertain::Create(pTestImage));
 
 	vecFieldObjects.push_back(pFieldObject);
 
 	
 #ifdef MEMORYPOOLUSE
 	SAFE_RELEASE(pRectangle);
+	SAFE_RELEASE(pTestImage);
+	//SAFE_RELEASE(pEagle);
 	//SAFE_RELEASE(pBox);
 #endif
 
 }
+
 void CMain::Initialize(void)
 {
 	CMemoryPool::GetInstance()->ReadyMemoryPool();
@@ -232,8 +500,8 @@ void CMain::Initialize(void)
 
 	//MakeSongPyeongMap(&m_pCamera, m_vecObjects);
 	//TestScene(&m_pCamera, m_vecObjects);
+	//ConrnellBox(&m_pCamera, m_vecObjects);
 	ConrnellBox(&m_pCamera, m_vecObjects);
-
 	m_pBVHTree = CBVHTree::Create(0, (UINT)m_vecObjects.size(), m_vecObjects);
 
 	m_pScreenBuffers = new BYTE[g_iScreenX * g_iScreenY * 4];

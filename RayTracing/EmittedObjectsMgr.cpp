@@ -25,9 +25,14 @@ void EmittedObjectsMgr::GenerateScatterRay(CRay & vOutRay,
 	const vec3 & vHitPos, 
 	const ScatterRecord & sRec) const
 {
-
-
 	// vHitPos는 월드로 들어옴
+
+	if (m_EmittedObjects.size() == 0)
+	{
+		fPdfValue = 1.f;
+		return;
+	}
+		
 
 	float fRand = CMathUtility::frand0to1() * m_EmittedObjects.size();
 

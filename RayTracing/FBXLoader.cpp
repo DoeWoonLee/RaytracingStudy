@@ -216,6 +216,11 @@ void CFBXLoader::LoadMesh(fbxsdk::FbxNode * pNode, std::vector<VERTEX>& vecVerti
 	bool* pOverlabCheck = new bool[vecVertices.size()];
 	ZeroMemory(pOverlabCheck, vecVertices.size() * sizeof(bool));
 
+
+	vec3 vBiNormal, vTangent;
+	vec3 Vector1, Vector2;
+	vec2 uvVector1, uvVector2;
+	float fDen;
 	// Find Index
 	UINT uiTrinagle = pMesh->GetPolygonCount();
 	UINT uiIndexByPolygonVertex = 0;
@@ -245,6 +250,32 @@ void CFBXLoader::LoadMesh(fbxsdk::FbxNode * pNode, std::vector<VERTEX>& vecVerti
 
 				uiIndexByPolygonVertex++;
 			}
+
+			// Make BiNormal, Tangent
+			Vector1 = vecVertices[Index._2].vPos - vecVertices[Index._1].vPos;
+			Vector2 = vecVertices[Index._3].vPos - vecVertices[Index._1].vPos;
+			// Calculate the tu and tv texture space vectors
+			uvVector1 = vecVertices[Index._2].vUV - vecVertices[Index._1].vUV;
+			uvVector2 = vecVertices[Index._3].vUV - vecVertices[Index._1].vUV;
+
+			// Calculate the denominator(분모) of the tangent/binormal equation(방정식).
+			fDen = 1.0f / (uvVector1.x * uvVector2.y - uvVector2.x * uvVector1.y);
+
+			// Calculate the cross products and multiply by the coefficient(계수) to get the tangent and binormal.
+			vTangent = (uvVector2.y * Vector1 - uvVector1.y * Vector2) * fDen;
+			vBiNormal = (uvVector1.x * Vector2 - uvVector2.x * Vector1) * fDen;
+
+			// Calculate the length of this normal.
+			vTangent.Normalize();
+			vBiNormal.Normalize();
+
+			vecVertices[Index._1].vBiNormal += vBiNormal;
+			vecVertices[Index._2].vBiNormal += vBiNormal;
+			vecVertices[Index._3].vBiNormal += vBiNormal;
+
+			vecVertices[Index._1].vTangent += vTangent;
+			vecVertices[Index._2].vTangent += vTangent;
+			vecVertices[Index._3].vTangent += vTangent;
 
 			pIndex->push_back(Index);
 			
@@ -291,6 +322,8 @@ void CFBXLoader::LoadMesh(fbxsdk::FbxNode * pNode, std::vector<VERTEX>& vecVerti
 	for (UINT i = 0; i < vecVertices.size(); ++i)
 	{
 		vecVertices[i].vNormal.Normalize();
+		vecVertices[i].vBiNormal.Normalize();
+		vecVertices[i].vTangent.Normalize();
 	}
 
 

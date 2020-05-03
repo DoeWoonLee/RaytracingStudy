@@ -6,6 +6,8 @@
 struct VERTEX {
 	vec3 vPos;
 	vec3 vNormal;
+	vec3 vBiNormal;
+	vec3 vTangent;
 	vec2 vUV;
 };
 struct INDEX16 {

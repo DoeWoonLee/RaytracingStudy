@@ -109,7 +109,14 @@ bool CFieldObject::Scatter(HitRecord & hRec,
 	float fScatteringPdf;
 	// 월드로 변환
 	m_pTransform->WorldNormal(hRec.vNormal);
+	m_pTransform->WorldNormal(hRec.vBiNormal);
+	m_pTransform->WorldNormal(hRec.vTangent);
+	
 	hRec.vNormal.Normalize();
+	hRec.vBiNormal.Normalize();
+	hRec.vTangent.Normalize();
+
+
 	hRec.vPos = inRay.PointAtParameter(hRec.fTime);
 
 	bool bCollision = m_pMaterial->Scatter(hRec, inRay, sRec);

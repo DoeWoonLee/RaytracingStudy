@@ -31,8 +31,20 @@ CLambertain::~CLambertain(void)
 bool CLambertain::Scatter(const HitRecord & hRec, const CRay& InRay, ScatterRecord& sRec) const
 {
 	sRec.bIsSpecular = false;
-	sRec.vAttenuation = m_pAlbedo->Value(hRec.vUV.x, hRec.vUV.y, hRec.vPos);
-	sRec.pPdfPtr = new CosinePdf(hRec.vNormal);
+
+	TexInfo texelInfo = m_pAlbedo->Value(hRec.vUV.x, hRec.vUV.y, hRec.vPos);
+	sRec.vAttenuation = texelInfo.vAlbedo;
+	vec3 vNormal = hRec.vNormal;
+
+	if (texelInfo.bBumpMap)
+	{
+		// BumpMapping
+		texelInfo.vNormal = texelInfo.vNormal * 2.f - 1.f;
+		vNormal = hRec.vNormal + texelInfo.vNormal.x * hRec.vTangent + texelInfo.vNormal.y * hRec.vBiNormal;
+		vNormal.Normalize();
+	}
+
+	sRec.pPdfPtr = new CosinePdf(vNormal);
 
 	return true;
 }

@@ -7,11 +7,11 @@ int g_MaxDepth = 50;
 
 void CUtility::GetSkyColor(float& y, vec3& vOut)
 {
-	/*XMVECTOR vLerp1 = DirectX::XMVectorSet(1.f, 1.f, 1.f, 0.f);
-	XMVECTOR vLerp2 = DirectX::XMVectorSet(0.5f, 0.7f, 1.f, 0.f);
-	float t = 0.5f * (y + 1.0f);
+	//XMVECTOR vLerp1 = DirectX::XMVectorSet(1.f, 1.f, 1.f, 0.f);
+	//XMVECTOR vLerp2 = DirectX::XMVectorSet(0.5f, 0.7f, 1.f, 0.f);
+	//float t = 0.5f * (y + 1.0f);
 
-	XMStoreFloat3(&vOut, (1.0f - t) * vLerp1 + t * vLerp2);*/
+	//XMStoreFloat3(&vOut, (1.0f - t) * vLerp1 + t * vLerp2);
 
 	vOut = vec3(0.f, 0.f, 0.f);
 }
